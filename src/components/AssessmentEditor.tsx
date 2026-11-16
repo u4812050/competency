@@ -378,24 +378,24 @@ export function AssessmentEditor({
   return (
     <div className="space-y-4">
       {/* Top Back & Form Selector Bento Tile */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
           <button
             type="button"
             onClick={onCancel}
-            className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+            className="min-h-[40px] inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            กลับไปหน้าทะเบียนประเมิน
+            กลับไปหน้าหลัก
           </button>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
             {isAdmin && (
               <div className="inline-flex items-center gap-1 p-1 bg-slate-100 rounded-xl">
                 <button
                   type="button"
                   onClick={() => setEvaluatorMode('self')}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
+                  className={`min-h-[38px] px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
                     evaluatorMode === 'self'
                       ? 'bg-[#4F46E5] text-white'
                       : 'text-slate-600 hover:text-slate-900'
@@ -406,7 +406,7 @@ export function AssessmentEditor({
                 <button
                   type="button"
                   onClick={() => setEvaluatorMode('supervisor')}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
+                  className={`min-h-[38px] px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
                     evaluatorMode === 'supervisor'
                       ? 'bg-[#0891B2] text-white'
                       : 'text-slate-600 hover:text-slate-900'
@@ -512,7 +512,7 @@ export function AssessmentEditor({
                         key={f.id}
                         type="button"
                         onClick={() => setFormId(f.id)}
-                        className={`px-3 py-2 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${buttonColorClass}`}
+                        className={`min-h-[40px] px-3 py-2 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${buttonColorClass}`}
                       >
                         {f.shortTitle}
                       </button>
@@ -526,13 +526,13 @@ export function AssessmentEditor({
       </div>
 
       {/* Form Title & Staff Information Bento Tile */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 space-y-5">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 space-y-5">
         <div className="border-b border-slate-200/80 pb-4">
           <p className="text-xs text-[#0E7490] font-medium">{form.subtitle}</p>
-          <h2 className="text-xl font-semibold text-slate-900 mt-1">{form.title}</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mt-1">{form.title}</h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
           <div>
             <label className="block text-xs font-medium text-slate-700 mb-1">
               ชื่อ–นามสกุล ผู้รับการประเมิน
@@ -544,7 +544,7 @@ export function AssessmentEditor({
               onChange={(e) => setStaffName(e.target.value)}
               disabled={isSelfLockedForStaff}
               placeholder="ระบุชื่อ–นามสกุล"
-              className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
             <datalist id="ward-staff-roster-list">
               {WARD_STAFF_ROSTER.map((member) => (
@@ -568,7 +568,7 @@ export function AssessmentEditor({
               }}
               disabled={isSelfLockedForStaff}
               placeholder="ระบุอายุ"
-              className="w-full px-3 py-2 text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
           </div>
 
@@ -579,7 +579,7 @@ export function AssessmentEditor({
               value={ward}
               onChange={(e) => setWard(e.target.value)}
               disabled={isSelfLockedForStaff}
-              className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
           </div>
 
@@ -589,7 +589,7 @@ export function AssessmentEditor({
               value={positionType}
               onChange={(e) => setPositionType(e.target.value as PositionType)}
               disabled={isSelfLockedForStaff}
-              className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             >
               <option value="RN">พยาบาลวิชาชีพ (RN / STN)</option>
               <option value="PN">ผู้ปฏิบัติงานพยาบาล (PN)</option>
@@ -613,7 +613,7 @@ export function AssessmentEditor({
               }}
               disabled={isSelfLockedForStaff}
               placeholder="ระบุจำนวนปี"
-              className="w-full px-3 py-2 text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
           </div>
 
@@ -633,7 +633,7 @@ export function AssessmentEditor({
               }}
               disabled={isSelfLockedForStaff}
               placeholder="ระบุจำนวนปี"
-              className="w-full px-3 py-2 text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
             {hasExperienceLevels && applicableSections[0] && (
               <p className="mt-1.5 text-[11px] font-medium text-[#0E7490] bg-[#ECFEFF] border border-[#A5F3FC] rounded-lg px-2.5 py-1">
@@ -650,7 +650,7 @@ export function AssessmentEditor({
               onChange={(e) => setAssessmentPeriod(e.target.value)}
               disabled={isSelfLockedForStaff}
               placeholder="เช่น ประจำปี 2569"
-              className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
           </div>
         </div>
@@ -791,7 +791,7 @@ export function AssessmentEditor({
                 ประเมินเฉพาะ {applicableSections[0]?.shortTitle} · {totalItems} ข้อ (เต็ม {totalItems * 3} คะแนน)
               </span>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
               {form.sections.map((sec, idx) => {
                 const isMatched = applicableSections.some((a) => a.id === sec.id);
                 const rangeHints = ['< 1 ปี', '1 – <3 ปี', '3 – <5 ปี', '5 – <10 ปี', '≥ 10 ปี'];
@@ -820,14 +820,15 @@ export function AssessmentEditor({
 
         {applicableSections.map((section) => {
           const secBreakdown = calc.sectionBreakdowns.find((s) => s.sectionId === section.id);
-          let lastSubGroup: string | undefined = undefined;
+          let tableLastSubGroup: string | undefined = undefined;
+          let mobileLastSubGroup: string | undefined = undefined;
 
           return (
             <div key={section.id} className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden">
-              <div className="bg-[#ECFEFF]/55 border-b border-slate-200/80 px-5 py-4 space-y-2">
+              <div className="bg-[#ECFEFF]/55 border-b border-slate-200/80 px-4 sm:px-5 py-3.5 sm:py-4 space-y-2">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
                   <div>
-                    <h3 className="text-base font-semibold text-slate-900">{section.title}</h3>
+                    <h3 className="text-sm sm:text-base font-semibold text-slate-900">{section.title}</h3>
                     {section.definition && (
                       <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                         <span className="font-semibold text-[#0E7490]">คำจำกัดความ: </span>
@@ -837,14 +838,14 @@ export function AssessmentEditor({
                   </div>
                   {canEvaluateSupervisor && (
                     <div className="flex flex-wrap items-center gap-2 shrink-0">
-                      <div className="flex items-center gap-1 text-xs">
-                        <span className="text-[#0E7490] font-medium mr-1">หัวหน้าทั้งหมวด:</span>
+                      <div className="flex items-center gap-1.5 text-xs">
+                        <span className="text-[#0E7490] font-medium mr-0.5">หัวหน้าทั้งหมวด:</span>
                         {([1, 2, 3] as const).map((v) => (
                           <button
                             key={v}
                             type="button"
                             onClick={() => fillSectionScores(section.id, 'supervisor', v)}
-                            className="px-2 py-1 font-mono bg-white border border-[#A5F3FC] text-[#0E7490] hover:bg-[#0891B2] hover:text-white rounded-lg transition-colors"
+                            className="min-w-[36px] min-h-[36px] px-2 py-1 font-mono bg-white border border-[#A5F3FC] text-[#0E7490] hover:bg-[#0891B2] hover:text-white rounded-lg transition-colors"
                           >
                             {v}
                           </button>
@@ -855,7 +856,139 @@ export function AssessmentEditor({
                 </div>
               </div>
 
-              <div className="overflow-x-auto">
+              {/* Mobile Touch-First Card Stack (< 768px: iOS & Android Phones Portrait & Narrow Landscape) */}
+              <div className="md:hidden divide-y divide-slate-100">
+                {section.items.map((item) => {
+                  const showSubGroup = item.subGroup && item.subGroup !== mobileLastSubGroup;
+                  mobileLastSubGroup = item.subGroup;
+                  const selfVal = selfScores[item.id];
+                  const supVal = supervisorScores[item.id];
+
+                  return (
+                    <React.Fragment key={`m-${item.id}`}>
+                      {showSubGroup && (
+                        <div className="bg-slate-50 px-4 py-2 text-xs font-semibold text-[#0E7490] border-y border-slate-200/80">
+                          {item.subGroup}
+                        </div>
+                      )}
+                      <div className="p-4 space-y-3">
+                        <p className="text-sm text-slate-900 leading-relaxed">
+                          <span className="font-mono font-semibold text-[#0E7490] mr-1.5">
+                            {item.numberLabel}.
+                          </span>
+                          {item.text}
+                        </p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                          <div className="bg-[#EEF2FF]/55 border border-[#C7D2FE]/70 rounded-xl p-2.5 space-y-2">
+                            <p className="text-[11px] font-semibold text-[#4338CA]">
+                              การประเมินตนเอง (1–3)
+                            </p>
+                            <div className="grid grid-cols-3 gap-2">
+                              {([1, 2, 3] as const).map((scoreVal) => {
+                                const selected = selfVal === scoreVal;
+                                return (
+                                  <button
+                                    key={`m-self-${scoreVal}`}
+                                    type="button"
+                                    disabled={isSelfLockedForStaff}
+                                    onClick={() =>
+                                      setSelfScores((prev) => ({ ...prev, [item.id]: scoreVal }))
+                                    }
+                                    aria-label={`ประเมินตนเองข้อ ${item.numberLabel} คะแนน ${scoreVal}`}
+                                    className={`min-h-[44px] rounded-xl flex items-center justify-center gap-1 font-mono text-sm transition-colors ${
+                                      selected
+                                        ? scoreVal === 1
+                                          ? 'bg-slate-600 text-white font-semibold'
+                                          : scoreVal === 2
+                                          ? 'bg-[#6366F1] text-white font-semibold'
+                                          : 'bg-[#4F46E5] text-white font-semibold'
+                                        : 'bg-white text-slate-500 border border-[#C7D2FE] hover:text-[#4F46E5]'
+                                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                                  >
+                                    {selected && <Check className="w-4 h-4" />}
+                                    <span>{scoreVal}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          <div
+                            className={`rounded-xl p-2.5 space-y-2 border ${
+                              canEvaluateSupervisor
+                                ? 'bg-[#ECFEFF]/55 border-[#A5F3FC]/80'
+                                : 'bg-slate-50 border-slate-200/80 opacity-80'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-1">
+                              <p className="text-[11px] font-semibold text-[#0E7490] inline-flex items-center gap-1">
+                                {!canEvaluateSupervisor && <Lock className="w-3 h-3 text-slate-400" />}
+                                <span>ผู้บังคับบัญชา (1–3)</span>
+                              </p>
+                              {!canEvaluateSupervisor && (
+                                <span className="text-[10px] text-slate-400">เฉพาะหัวหน้า</span>
+                              )}
+                            </div>
+                            <div className="grid grid-cols-3 gap-2">
+                              {([1, 2, 3] as const).map((scoreVal) => {
+                                const selected = supVal === scoreVal;
+                                return (
+                                  <button
+                                    key={`m-sup-${scoreVal}`}
+                                    type="button"
+                                    disabled={!canEvaluateSupervisor}
+                                    aria-disabled={!canEvaluateSupervisor}
+                                    onClick={() => {
+                                      if (!canEvaluateSupervisor) return;
+                                      setSupervisorScores((prev) => ({
+                                        ...prev,
+                                        [item.id]: scoreVal,
+                                      }));
+                                    }}
+                                    aria-label={`หัวหน้าประเมินข้อ ${item.numberLabel} คะแนน ${scoreVal}`}
+                                    className={`min-h-[44px] rounded-xl flex items-center justify-center gap-1 font-mono text-sm transition-colors ${
+                                      selected
+                                        ? scoreVal === 1
+                                          ? 'bg-rose-600 text-white font-semibold'
+                                          : scoreVal === 2
+                                          ? 'bg-amber-500 text-white font-semibold'
+                                          : 'bg-emerald-600 text-white font-semibold'
+                                        : canEvaluateSupervisor
+                                        ? 'bg-white text-slate-500 border border-[#A5F3FC] hover:text-[#0E7490]'
+                                        : 'bg-slate-100 text-slate-300 border border-slate-200'
+                                    } disabled:opacity-55 disabled:cursor-not-allowed`}
+                                  >
+                                    {selected && <Check className="w-4 h-4" />}
+                                    <span>{scoreVal}</span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  );
+                })}
+
+                {secBreakdown && (
+                  <div className="bg-slate-50/80 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs font-medium text-slate-700">
+                    <span>รวมคะแนนหมวด: {section.shortTitle}</span>
+                    <div className="flex items-center gap-3 font-mono tabular-nums">
+                      <span className="text-[#4F46E5] font-semibold">
+                        ตนเอง {secBreakdown.selfScore}/{secBreakdown.maxScore} ({secBreakdown.selfPercentage}%)
+                      </span>
+                      <span className="text-[#0E7490] font-semibold">
+                        หัวหน้า {secBreakdown.supervisorScore}/{secBreakdown.maxScore} ({secBreakdown.supervisorPercentage}%)
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Tablet & Desktop 7-Column Table (>= 768px) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr className="border-b border-slate-200/80 bg-slate-50/70 text-xs text-slate-700">
@@ -888,8 +1021,8 @@ export function AssessmentEditor({
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {section.items.map((item) => {
-                      const showSubGroup = item.subGroup && item.subGroup !== lastSubGroup;
-                      lastSubGroup = item.subGroup;
+                      const showSubGroup = item.subGroup && item.subGroup !== tableLastSubGroup;
+                      tableLastSubGroup = item.subGroup;
                       const selfVal = selfScores[item.id];
                       const supVal = supervisorScores[item.id];
 
@@ -923,7 +1056,7 @@ export function AssessmentEditor({
                                       setSelfScores((prev) => ({ ...prev, [item.id]: scoreVal }))
                                     }
                                     aria-label={`ประเมินตนเองข้อ ${item.numberLabel} คะแนน ${scoreVal}`}
-                                    className={`w-9 h-9 mx-auto rounded-lg flex items-center justify-center font-mono text-xs transition-colors ${
+                                    className={`w-10 h-10 mx-auto rounded-lg flex items-center justify-center font-mono text-xs transition-colors ${
                                       selected
                                         ? scoreVal === 1
                                           ? 'bg-slate-600 text-white font-semibold'
@@ -972,7 +1105,7 @@ export function AssessmentEditor({
                                       }));
                                     }}
                                     aria-label={`หัวหน้าประเมินข้อ ${item.numberLabel} คะแนน ${scoreVal}`}
-                                    className={`w-9 h-9 mx-auto rounded-lg flex items-center justify-center font-mono text-xs transition-colors ${
+                                    className={`w-10 h-10 mx-auto rounded-lg flex items-center justify-center font-mono text-xs transition-colors ${
                                       selected
                                         ? scoreVal === 1
                                           ? 'bg-rose-600 text-white font-semibold'
@@ -1018,19 +1151,19 @@ export function AssessmentEditor({
 
       {/* Post-Assessment Feedback Bento Tiles */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-white border border-[#C7D2FE] rounded-2xl p-6 space-y-3">
+        <div className="bg-white border border-[#C7D2FE] rounded-2xl p-4 sm:p-6 space-y-3">
           <h4 className="text-sm font-semibold text-[#4338CA]">
             ความคิดเห็นของผู้รับการประเมิน
           </h4>
-          <div className="space-y-2">
+          <div className="space-y-1.5 sm:space-y-2">
             {SELF_FEEDBACK_OPTIONS.map((opt) => (
-              <label key={opt.key} className="flex items-center gap-2.5 text-sm text-slate-700 cursor-pointer">
+              <label key={opt.key} className="min-h-[38px] py-0.5 flex items-center gap-2.5 text-sm text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   disabled={isSelfLockedForStaff}
                   checked={selfFeedback.includes(opt.key)}
                   onChange={() => toggleFeedbackKey(selfFeedback, setSelfFeedback, opt.key)}
-                  className="w-4 h-4 rounded border-slate-300 accent-[#4F46E5] disabled:opacity-50"
+                  className="w-5 h-5 sm:w-4 sm:h-4 rounded border-slate-300 accent-[#4F46E5] disabled:opacity-50 shrink-0"
                 />
                 <span>{opt.label}</span>
               </label>
@@ -1042,27 +1175,27 @@ export function AssessmentEditor({
             value={selfOtherNote}
             onChange={(e) => setSelfOtherNote(e.target.value)}
             placeholder="ระบุความคิดเห็นเพิ่มเติมของผู้รับการประเมิน..."
-            className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/15 focus:border-[#4F46E5] disabled:opacity-60"
+            className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/15 focus:border-[#4F46E5] disabled:opacity-60"
           />
         </div>
 
-        <div className="bg-white border border-[#A5F3FC] rounded-2xl p-6 space-y-3">
+        <div className="bg-white border border-[#A5F3FC] rounded-2xl p-4 sm:p-6 space-y-3">
           <div className="flex items-center justify-between gap-2">
             <h4 className="text-sm font-semibold text-[#0E7490]">
               ข้อเสนอแนะจากผู้บังคับบัญชาที่ต้องทำต่อ
             </h4>
             {!canEvaluateSupervisor && (
-              <span className="inline-flex items-center gap-1 text-[11px] text-slate-500">
+              <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 shrink-0">
                 <Lock className="w-3 h-3" />
                 เฉพาะผู้บังคับบัญชา
               </span>
             )}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1.5 sm:space-y-2">
             {FEEDBACK_OPTIONS.map((opt) => (
               <label
                 key={opt.key}
-                className={`flex items-center gap-2.5 text-sm text-slate-700 ${
+                className={`min-h-[38px] py-0.5 flex items-center gap-2.5 text-sm text-slate-700 ${
                   canEvaluateSupervisor ? 'cursor-pointer' : 'cursor-not-allowed opacity-60'
                 }`}
               >
@@ -1074,7 +1207,7 @@ export function AssessmentEditor({
                     if (!canEvaluateSupervisor) return;
                     toggleFeedbackKey(supervisorFeedback, setSupervisorFeedback, opt.key);
                   }}
-                  className="w-4 h-4 rounded border-slate-300 accent-[#0891B2] disabled:opacity-50"
+                  className="w-5 h-5 sm:w-4 sm:h-4 rounded border-slate-300 accent-[#0891B2] disabled:opacity-50 shrink-0"
                 />
                 <span>{opt.label}</span>
               </label>
@@ -1090,7 +1223,7 @@ export function AssessmentEditor({
                 ? 'ระบุข้อเสนอแนะเพิ่มเติมจากผู้บังคับบัญชา...'
                 : 'สำหรับผู้บังคับบัญชากรอกเท่านั้น'
             }
-            className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60 disabled:cursor-not-allowed"
           />
         </div>
       </div>
@@ -1107,23 +1240,23 @@ export function AssessmentEditor({
         </div>
       )}
 
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-4 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
         <button
           type="button"
           onClick={onCancel}
-          className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+          className="w-full sm:w-auto min-h-[44px] px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 bg-slate-50 sm:bg-transparent rounded-xl transition-colors"
         >
           ยกเลิก
         </button>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5">
           {!isSelfLockedForStaff && (
             <>
               <button
                 type="button"
                 disabled={saving}
                 onClick={() => void handleSave('draft')}
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl transition-colors disabled:opacity-50 whitespace-nowrap"
+                className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl transition-colors disabled:opacity-50 whitespace-nowrap"
               >
                 <Save className="w-4 h-4" />
                 บันทึกร่าง
@@ -1132,7 +1265,7 @@ export function AssessmentEditor({
                 type="button"
                 disabled={saving}
                 onClick={handleOpenSelfSubmitConfirm}
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#4F46E5] hover:bg-[#4338CA] rounded-xl transition-colors disabled:opacity-50 whitespace-nowrap"
+                className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#4F46E5] hover:bg-[#4338CA] rounded-xl transition-colors disabled:opacity-50 whitespace-nowrap"
               >
                 <Send className="w-4 h-4" />
                 ส่งผลประเมินตนเอง
@@ -1145,7 +1278,7 @@ export function AssessmentEditor({
               type="button"
               disabled={saving}
               onClick={() => void handleSave('evaluated', true)}
-              className="inline-flex items-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors disabled:opacity-50 whitespace-nowrap"
+              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2 text-sm font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors disabled:opacity-50 whitespace-nowrap"
             >
               <Eye className="w-4 h-4" />
               บันทึกผลประเมินผู้บังคับบัญชา &amp; ดูกราฟสรุป
@@ -1156,12 +1289,12 @@ export function AssessmentEditor({
 
       {showSelfSubmitModal && (
         <div
-          className="fixed inset-0 z-50 bg-slate-950/55 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-slate-950/55 flex items-center justify-center p-2 sm:p-4 overflow-y-auto"
           role="dialog"
           aria-modal="true"
           aria-labelledby="self-submit-confirm-title"
         >
-          <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full max-h-[90dvh] overflow-y-auto overscroll-contain p-4 sm:p-6 space-y-4">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#4F46E5] flex items-center justify-center shrink-0">
@@ -1190,41 +1323,41 @@ export function AssessmentEditor({
                   }
                 }}
                 aria-label="ปิดหน้าต่าง"
-                className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg disabled:opacity-40"
+                className="min-w-[40px] min-h-[40px] inline-flex items-center justify-center text-slate-400 hover:text-slate-700 rounded-lg disabled:opacity-40 shrink-0"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 space-y-2 text-xs text-slate-700">
-              <div className="flex items-center justify-between gap-2">
+            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 sm:p-4 space-y-2 text-xs text-slate-700">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-slate-500">ผู้รับการประเมิน:</span>
                 <span className="font-semibold text-slate-900">
                   {staffName.trim()} ({positionType})
                 </span>
               </div>
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-slate-500">แบบประเมิน / รอบ:</span>
                 <span className="font-medium text-slate-900">
                   {form.code} · {assessmentPeriod}
                 </span>
               </div>
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-slate-500">คะแนนประเมินตนเอง:</span>
                 <span className="font-mono font-semibold text-[#4F46E5]">
                   {calc.selfTotalScore}/{calc.selfMaxScore} คะแนน ({calc.selfPercentage}%)
                 </span>
               </div>
               <div className="pt-2 border-t border-slate-200/80 space-y-1">
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-slate-500">ส่งอีเมลแจ้งเตือนถึง:</span>
-                  <span className="font-mono font-semibold text-[#0E7490]">
+                  <span className="font-mono font-semibold text-[#0E7490] break-all">
                     {HEAD_NURSE_NOTIFICATION_EMAIL}
                   </span>
                 </div>
                 <p className="text-slate-500">
                   หัวข้ออีเมล:{' '}
-                  <span className="text-slate-800 font-medium">
+                  <span className="text-slate-800 font-medium break-words">
                     {buildSelfAssessmentEmailSubject({
                       staffName: staffName.trim(),
                       positionType,
@@ -1266,7 +1399,7 @@ export function AssessmentEditor({
                     setShowSelfSubmitModal(false);
                   }
                 }}
-                className="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 bg-white border border-slate-200 rounded-xl transition-colors disabled:opacity-50"
+                className="min-h-[42px] px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 bg-white border border-slate-200 rounded-xl transition-colors disabled:opacity-50"
               >
                 {submittedAssessmentId ? 'ปิด (บันทึกผลแล้ว)' : 'ยกเลิก'}
               </button>
@@ -1275,7 +1408,7 @@ export function AssessmentEditor({
                   type="button"
                   disabled={saving}
                   onClick={() => void handleConfirmSelfSubmit(false)}
-                  className="px-4 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors disabled:opacity-50"
+                  className="min-h-[42px] px-4 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors disabled:opacity-50"
                 >
                   ส่งเฉพาะผล (ไม่ส่งอีเมล)
                 </button>
@@ -1284,7 +1417,7 @@ export function AssessmentEditor({
                 type="button"
                 disabled={saving}
                 onClick={() => void handleConfirmSelfSubmit(true)}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-[#4F46E5] hover:bg-[#4338CA] rounded-xl transition-colors disabled:opacity-50"
+                className="min-h-[42px] inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-[#4F46E5] hover:bg-[#4338CA] rounded-xl transition-colors disabled:opacity-50"
               >
                 <Send className="w-3.5 h-3.5" />
                 {saving

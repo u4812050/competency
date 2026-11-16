@@ -203,14 +203,14 @@ export function RecordsTable({
   return (
     <div className="space-y-4">
       {/* Toolbar Bento Tile */}
-      <div className="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
           {/* 3-Group Segmented Filter */}
           <div className="flex flex-wrap items-center gap-1 p-1 bg-slate-100 rounded-xl">
             <button
               type="button"
               onClick={() => handleGroupChange('ALL')}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+              className={`min-h-[38px] px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                 groupFilter === 'ALL'
                   ? 'bg-[#0F172A] text-white'
                   : 'text-slate-600 hover:text-slate-900'
@@ -226,7 +226,7 @@ export function RecordsTable({
                   key={grp.id}
                   type="button"
                   onClick={() => handleGroupChange(grp.id)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                  className={`min-h-[38px] px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                     isSelected ? gColor.solidBg : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -236,12 +236,12 @@ export function RecordsTable({
             })}
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2.5">
             {totalVisibleRows > 0 && (
               <button
                 type="button"
                 onClick={handleExportCsv}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl transition-colors whitespace-nowrap"
+                className="flex-1 sm:flex-initial min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl transition-colors whitespace-nowrap"
               >
                 <Download className="w-3.5 h-3.5" />
                 ดาวน์โหลด CSV
@@ -260,7 +260,7 @@ export function RecordsTable({
                     : 'STN_Colorectal'
                 )
               }
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap"
+              className="flex-1 sm:flex-initial min-h-[40px] inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap"
             >
               <Plus className="w-3.5 h-3.5" />
               สร้างแบบประเมินใหม่
@@ -268,16 +268,16 @@ export function RecordsTable({
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 pt-2 border-t border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3">
+            <div className="relative w-full sm:w-56">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="ค้นหาชื่อ, กลุ่ม, รอบ..."
-                className="pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] w-56"
+                className="w-full min-h-[42px] pl-9 pr-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
               />
             </div>
 
@@ -286,7 +286,7 @@ export function RecordsTable({
                 value={formFilter}
                 onChange={(e) => setFormFilter(e.target.value as 'ALL' | FormId)}
                 aria-label="กรองตามแบบประเมิน"
-                className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
+                className="w-full sm:w-auto min-h-[42px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
               >
                 <option value="ALL">
                   {groupFilter === 'STN' ? 'ทุกสาขาในกลุ่ม STN' : 'ทุกแบบประเมิน'}
@@ -305,7 +305,7 @@ export function RecordsTable({
                 setTierFilter(e.target.value as 'ALL' | CompetencyTier | 'unassessed')
               }
               aria-label="กรองตามผลประเมิน"
-              className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
+              className="w-full sm:w-auto min-h-[42px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
             >
               <option value="ALL">ทุกระดับผลประเมิน</option>
               <option value="exceed">สูงกว่ามาตรฐาน (86–100%)</option>
@@ -334,150 +334,264 @@ export function RecordsTable({
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200/80 text-xs text-slate-600">
-                <tr>
-                  <th className="text-left px-4 py-3 font-medium">ชื่อ–นามสกุล</th>
-                  <th className="text-left px-4 py-3 font-medium">แบบประเมิน / กลุ่ม</th>
-                  <th className="text-left px-4 py-3 font-medium">รอบประเมิน</th>
-                  <th className="text-right px-4 py-3 font-medium">ประเมินตนเอง</th>
-                  <th className="text-right px-4 py-3 font-medium">ผู้บังคับบัญชา</th>
-                  <th className="text-left px-4 py-3 font-medium">สรุปเกณฑ์</th>
-                  <th className="text-right px-4 py-3 font-medium">จัดการ</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filteredAssessments.map((item) => {
-                  const form = getFormById(item.formId);
-                  const tier = getTierMeta(item.supervisorTier);
-                  const gColor = getGroupColorMeta(form.group);
-                  const canDelete = isAdmin || item.status === 'draft';
+          <>
+            {/* Mobile Card List (< 768px: iOS & Android Phones Portrait/Landscape) */}
+            <div className="md:hidden divide-y divide-slate-100">
+              {filteredAssessments.map((item) => {
+                const form = getFormById(item.formId);
+                const tier = getTierMeta(item.supervisorTier);
+                const gColor = getGroupColorMeta(form.group);
+                const canDelete = isAdmin || item.status === 'draft';
 
-                  return (
-                    <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
-                      <td className="px-4 py-3">
-                        <p className="font-medium text-slate-900">{item.staffName}</p>
-                        <p className="text-xs text-slate-500">
+                return (
+                  <div key={item.id} className="p-4 space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-slate-900">{item.staffName}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">
                           {item.positionType} · ประสบการณ์ {item.totalYears} ปี
                         </p>
-                      </td>
-                      <td className="px-4 py-3 text-slate-700">
+                      </div>
+                      <span className={`text-xs font-semibold shrink-0 ${tier.textClass}`}>
+                        {tier.thLabel}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs bg-slate-50 rounded-xl px-3 py-2">
+                      <div className="text-slate-700">
                         <span className="font-medium text-slate-900">{form.code}</span>
-                        <span className={`text-xs font-semibold ml-1.5 ${gColor.accentText}`}>
+                        <span className={`font-semibold ml-1.5 ${gColor.accentText}`}>
                           · กลุ่ม {form.group}
                         </span>
-                      </td>
-                      <td className="px-4 py-3 text-slate-600">{item.assessmentPeriod}</td>
-                      <td className="px-4 py-3 text-right font-mono tabular-nums text-[#4F46E5] font-medium">
-                        {item.selfPercentage}%
-                      </td>
-                      <td className="px-4 py-3 text-right font-mono tabular-nums text-[#0891B2] font-semibold">
-                        {item.supervisorTier === 'pending' ? '—' : `${item.supervisorPercentage}%`}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-xs font-medium ${tier.textClass}`}>
-                          {tier.thLabel}
+                        <span className="text-slate-400 ml-1.5">· {item.assessmentPeriod}</span>
+                      </div>
+                      <div className="flex items-center gap-3 font-mono tabular-nums">
+                        <span className="text-[#4F46E5] font-medium">ตนเอง {item.selfPercentage}%</span>
+                        <span className="text-[#0891B2] font-semibold">
+                          หัวหน้า {item.supervisorTier === 'pending' ? '—' : `${item.supervisorPercentage}%`}
                         </span>
-                      </td>
-                      <td className="px-4 py-3 text-right">
-                        <div className="inline-flex items-center justify-end gap-1">
-                          <button
-                            type="button"
-                            onClick={() => onViewReport(item)}
-                            title="สรุปผลเป็นกราฟิก"
-                            className="p-2 text-slate-500 hover:text-[#0891B2] hover:bg-[#ECFEFF] rounded-lg transition-colors"
-                          >
-                            <BarChart2 className="w-4 h-4" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => onEdit(item)}
-                            title="แก้ไข / ประเมิน"
-                            className="p-2 text-slate-500 hover:text-[#4F46E5] hover:bg-[#EEF2FF] rounded-lg transition-colors"
-                          >
-                            <Edit3 className="w-4 h-4" />
-                          </button>
-                          {canDelete && (
-                            <button
-                              type="button"
-                              disabled={deletingId === item.id}
-                              onClick={() => void handleDelete(item.id)}
-                              title="ลบรายการ"
-                              className="p-2 text-slate-400 hover:text-rose-600 hover:bg-[#FFF1F2] rounded-lg transition-colors disabled:opacity-40"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                      </div>
+                    </div>
 
-                {filteredRoster.map((member) => {
-                  const isSupervisor = member.category === 'SUPERVISOR';
-                  const gColor = !isSupervisor
-                    ? getGroupColorMeta(member.category as CompetencyGroup)
-                    : null;
-
-                  return (
-                    <tr key={member.id} className="hover:bg-slate-50/70 transition-colors">
-                      <td className="px-4 py-3">
-                        <p className="font-medium text-slate-900">{member.fullName}</p>
-                        <p className="text-xs text-slate-500">
-                          {member.rosterRoleLabel} · {DEFAULT_WARD}
-                        </p>
-                      </td>
-                      <td className="px-4 py-3 text-slate-700">
-                        {isSupervisor ? (
-                          <span className="text-xs font-semibold text-slate-700">
-                            ผู้บังคับบัญชา
-                          </span>
-                        ) : (
-                          <>
-                            <span className={`text-xs font-semibold ${gColor?.accentText}`}>
-                              กลุ่ม {member.category}
-                            </span>
-                            <span className="text-xs text-slate-400 ml-1.5">
-                              · {member.positionType}
-                            </span>
-                          </>
-                        )}
-                      </td>
-                      <td className="px-4 py-3 text-slate-400">—</td>
-                      <td className="px-4 py-3 text-right font-mono tabular-nums text-slate-400">
-                        —
-                      </td>
-                      <td className="px-4 py-3 text-right font-mono tabular-nums text-slate-400">
-                        —
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="text-xs font-medium text-slate-400">
-                          ยังไม่เริ่มประเมิน
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        type="button"
+                        onClick={() => onViewReport(item)}
+                        className="min-h-[40px] flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#0E7490] bg-[#ECFEFF] hover:bg-[#CFFAFE] rounded-xl transition-colors"
+                      >
+                        <BarChart2 className="w-3.5 h-3.5" />
+                        ดูกราฟ
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onEdit(item)}
+                        className="min-h-[40px] flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium text-[#4F46E5] bg-[#EEF2FF] hover:bg-[#E0E7FF] rounded-xl transition-colors"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                        แก้ไข/ประเมิน
+                      </button>
+                      {canDelete && (
                         <button
                           type="button"
-                          onClick={() =>
-                            onCreateNew(member.defaultFormId, {
-                              staffName: member.fullName,
-                              positionType: member.positionType,
-                            })
-                          }
-                          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#0E7490] bg-[#ECFEFF] hover:bg-[#CFFAFE] border border-[#A5F3FC] rounded-lg transition-colors whitespace-nowrap"
+                          disabled={deletingId === item.id}
+                          onClick={() => void handleDelete(item.id)}
+                          aria-label="ลบรายการ"
+                          className="min-w-[40px] min-h-[40px] inline-flex items-center justify-center text-rose-600 bg-[#FFF1F2] hover:bg-[#FFE4E6] rounded-xl transition-colors disabled:opacity-40"
                         >
-                          <Plus className="w-3.5 h-3.5" />
-                          ประเมิน
+                          <Trash2 className="w-4 h-4" />
                         </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {filteredRoster.map((member) => {
+                const isSupervisor = member.category === 'SUPERVISOR';
+                const gColor = !isSupervisor
+                  ? getGroupColorMeta(member.category as CompetencyGroup)
+                  : null;
+
+                return (
+                  <div key={member.id} className="p-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-slate-900 truncate">{member.fullName}</p>
+                      <p className="text-xs text-slate-500 mt-0.5 truncate">
+                        {member.rosterRoleLabel} ·{' '}
+                        {isSupervisor ? (
+                          <span className="font-semibold text-slate-700">ผู้บังคับบัญชา</span>
+                        ) : (
+                          <span className={`font-semibold ${gColor?.accentText}`}>
+                            กลุ่ม {member.category}
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-0.5">ยังไม่เริ่มประเมิน</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        onCreateNew(member.defaultFormId, {
+                          staffName: member.fullName,
+                          positionType: member.positionType,
+                        })
+                      }
+                      className="min-h-[40px] inline-flex items-center gap-1 px-3.5 py-2 text-xs font-medium text-[#0E7490] bg-[#ECFEFF] hover:bg-[#CFFAFE] border border-[#A5F3FC] rounded-xl transition-colors whitespace-nowrap shrink-0"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      ประเมิน
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Tablet & Desktop Table (>= 768px) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 border-b border-slate-200/80 text-xs text-slate-600">
+                  <tr>
+                    <th className="text-left px-3 lg:px-4 py-3 font-medium">ชื่อ–นามสกุล</th>
+                    <th className="text-left px-3 lg:px-4 py-3 font-medium">แบบประเมิน / กลุ่ม</th>
+                    <th className="text-left px-3 lg:px-4 py-3 font-medium">รอบประเมิน</th>
+                    <th className="text-right px-3 lg:px-4 py-3 font-medium">ประเมินตนเอง</th>
+                    <th className="text-right px-3 lg:px-4 py-3 font-medium">ผู้บังคับบัญชา</th>
+                    <th className="text-left px-3 lg:px-4 py-3 font-medium">สรุปเกณฑ์</th>
+                    <th className="text-right px-3 lg:px-4 py-3 font-medium">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredAssessments.map((item) => {
+                    const form = getFormById(item.formId);
+                    const tier = getTierMeta(item.supervisorTier);
+                    const gColor = getGroupColorMeta(form.group);
+                    const canDelete = isAdmin || item.status === 'draft';
+
+                    return (
+                      <tr key={item.id} className="hover:bg-slate-50/70 transition-colors">
+                        <td className="px-3 lg:px-4 py-3">
+                          <p className="font-medium text-slate-900">{item.staffName}</p>
+                          <p className="text-xs text-slate-500">
+                            {item.positionType} · ประสบการณ์ {item.totalYears} ปี
+                          </p>
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-slate-700">
+                          <span className="font-medium text-slate-900">{form.code}</span>
+                          <span className={`text-xs font-semibold ml-1.5 ${gColor.accentText}`}>
+                            · กลุ่ม {form.group}
+                          </span>
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-slate-600">{item.assessmentPeriod}</td>
+                        <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-[#4F46E5] font-medium">
+                          {item.selfPercentage}%
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-[#0891B2] font-semibold">
+                          {item.supervisorTier === 'pending' ? '—' : `${item.supervisorPercentage}%`}
+                        </td>
+                        <td className="px-3 lg:px-4 py-3">
+                          <span className={`text-xs font-medium ${tier.textClass}`}>
+                            {tier.thLabel}
+                          </span>
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-right">
+                          <div className="inline-flex items-center justify-end gap-1">
+                            <button
+                              type="button"
+                              onClick={() => onViewReport(item)}
+                              title="สรุปผลเป็นกราฟิก"
+                              className="p-2 text-slate-500 hover:text-[#0891B2] hover:bg-[#ECFEFF] rounded-lg transition-colors"
+                            >
+                              <BarChart2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => onEdit(item)}
+                              title="แก้ไข / ประเมิน"
+                              className="p-2 text-slate-500 hover:text-[#4F46E5] hover:bg-[#EEF2FF] rounded-lg transition-colors"
+                            >
+                              <Edit3 className="w-4 h-4" />
+                            </button>
+                            {canDelete && (
+                              <button
+                                type="button"
+                                disabled={deletingId === item.id}
+                                onClick={() => void handleDelete(item.id)}
+                                title="ลบรายการ"
+                                className="p-2 text-slate-400 hover:text-rose-600 hover:bg-[#FFF1F2] rounded-lg transition-colors disabled:opacity-40"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+
+                  {filteredRoster.map((member) => {
+                    const isSupervisor = member.category === 'SUPERVISOR';
+                    const gColor = !isSupervisor
+                      ? getGroupColorMeta(member.category as CompetencyGroup)
+                      : null;
+
+                    return (
+                      <tr key={member.id} className="hover:bg-slate-50/70 transition-colors">
+                        <td className="px-3 lg:px-4 py-3">
+                          <p className="font-medium text-slate-900">{member.fullName}</p>
+                          <p className="text-xs text-slate-500">
+                            {member.rosterRoleLabel} · {DEFAULT_WARD}
+                          </p>
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-slate-700">
+                          {isSupervisor ? (
+                            <span className="text-xs font-semibold text-slate-700">
+                              ผู้บังคับบัญชา
+                            </span>
+                          ) : (
+                            <>
+                              <span className={`text-xs font-semibold ${gColor?.accentText}`}>
+                                กลุ่ม {member.category}
+                              </span>
+                              <span className="text-xs text-slate-400 ml-1.5">
+                                · {member.positionType}
+                              </span>
+                            </>
+                          )}
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-slate-400">—</td>
+                        <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-slate-400">
+                          —
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-slate-400">
+                          —
+                        </td>
+                        <td className="px-3 lg:px-4 py-3">
+                          <span className="text-xs font-medium text-slate-400">
+                            ยังไม่เริ่มประเมิน
+                          </span>
+                        </td>
+                        <td className="px-3 lg:px-4 py-3 text-right">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              onCreateNew(member.defaultFormId, {
+                                staffName: member.fullName,
+                                positionType: member.positionType,
+                              })
+                            }
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-[#0E7490] bg-[#ECFEFF] hover:bg-[#CFFAFE] border border-[#A5F3FC] rounded-lg transition-colors whitespace-nowrap"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            ประเมิน
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </div>

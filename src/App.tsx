@@ -59,6 +59,15 @@ function CompetencyWorkspace() {
     }
   }, [pendingReportId, assessments]);
 
+  React.useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
+
   const openNewAssessment = (formId: FormId = 'PN', prefill: StaffPrefill | null = null) => {
     setEditingAssessment(null);
     setInitialFormId(formId);
@@ -78,7 +87,7 @@ function CompetencyWorkspace() {
 
   if (!authReady) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F4F7FB]">
+      <div className="min-h-dvh flex items-center justify-center bg-[#F4F7FB] px-4">
         <div className="text-center space-y-2.5">
           <div className="w-7 h-7 border-2 border-[#0891B2] border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-sm text-slate-500">กำลังเชื่อมต่อระบบประเมินสมรรถนะ...</p>
@@ -89,19 +98,19 @@ function CompetencyWorkspace() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#F4F7FB] flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="min-h-dvh bg-[#F4F7FB] flex flex-col justify-center py-5 sm:py-8 lg:py-10 px-4 sm:px-6 lg:px-8 px-safe pb-safe">
+        <div className="max-w-5xl w-full mx-auto grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
           {/* Hero Bento Tile */}
-          <div className="lg:col-span-8 bg-white border border-slate-200/90 rounded-2xl p-8 flex flex-col justify-between gap-8">
-            <div className="space-y-3">
-              <p className="text-xs font-semibold text-[#0E7490]">
+          <div className="md:col-span-7 lg:col-span-8 bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-7 lg:p-8 flex flex-col justify-between gap-5 sm:gap-7">
+            <div className="space-y-2.5 sm:space-y-3">
+              <p className="text-xs font-semibold text-[#0E7490] leading-relaxed">
                 หอผู้ป่วยพิเศษบุญสม 7 · งานการพยาบาลผู้ป่วยพิเศษเฉพาะทาง · โรงพยาบาลมหาราชนครเชียงใหม่
               </p>
-              <h1 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-900 tracking-tight">
                 ระบบประเมินสมรรถนะเฉพาะหน่วยงาน
                 <span className="block">(Unit-Specific Competency)</span>
               </h1>
-              <p className="text-sm text-slate-600 leading-relaxed max-w-2xl">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
                 แพลตฟอร์มบันทึกผลประเมินสมรรถนะทางการพยาบาล คำนวณค่าร้อยละและระดับเกณฑ์มาตรฐานอัตโนมัติ
                 จัดเก็บข้อมูลแบบเรียลไทม์ พร้อมสรุปผลเปรียบเทียบเชิงกราฟิกครบทั้ง 7 แบบประเมิน
               </p>
@@ -113,14 +122,14 @@ function CompetencyWorkspace() {
               </p>
             )}
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 pt-4 border-t border-slate-100">
               <p className="text-xs text-slate-500">
                 เข้าสู่ระบบด้วยบัญชี Google เพื่อบันทึกและดูผลประเมินแบบเรียลไทม์
               </p>
               <button
                 type="button"
                 onClick={() => void signInWithGoogle()}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap shrink-0"
+                className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap shrink-0"
               >
                 <UserCheck className="w-4 h-4" />
                 เข้าสู่ระบบด้วย Google
@@ -129,11 +138,11 @@ function CompetencyWorkspace() {
           </div>
 
           {/* Visual Illustration Tile */}
-          <div className="lg:col-span-4 rounded-2xl overflow-hidden border border-slate-200/90 bg-white aspect-square lg:aspect-auto lg:h-full">
+          <div className="md:col-span-5 lg:col-span-4 rounded-2xl overflow-hidden border border-slate-200/90 bg-white aspect-[4/3] sm:aspect-[16/10] max-h-64 sm:max-h-72 md:max-h-none md:aspect-auto md:h-full">
             <img
               src="/assets/aistudio/Gemini_Generated_Image_y4xyycy4xyycy4xy_d473e530.jfif"
               alt="Smart Performance Assessment"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-top md:object-center"
             />
           </div>
         </div>
@@ -165,9 +174,9 @@ function CompetencyWorkspace() {
       : 'ข้อมูลบุคลากรและสิทธิ์ผู้ประเมิน';
 
   return (
-    <div className="min-h-screen bg-[#F4F7FB] flex">
-      {/* Deep Slate Desktop Sidebar */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:shrink-0 bg-[#0F172A] text-slate-100 border-r border-slate-800 no-print">
+    <div className="min-h-dvh bg-[#F4F7FB] flex">
+      {/* Deep Slate Desktop & Tablet Landscape Sidebar */}
+      <aside className="hidden lg:flex lg:flex-col lg:w-60 xl:w-64 lg:shrink-0 bg-[#0F172A] text-slate-100 border-r border-slate-800 no-print">
         <div className="h-16 px-5 flex items-center border-b border-slate-800">
           <span className="text-base font-semibold tracking-tight text-white whitespace-nowrap">
             Boonsom 7 <span className="text-[#2DD4BF]">Competency</span>
@@ -256,27 +265,28 @@ function CompetencyWorkspace() {
         </div>
       </aside>
 
-      {/* Deep Slate Mobile Drawer */}
+      {/* Deep Slate Mobile & Tablet Portrait Drawer */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex no-print">
           <div
-            className="fixed inset-0 bg-slate-950/50"
+            className="fixed inset-0 bg-slate-950/50 backdrop-blur-[1px]"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <aside className="relative w-64 max-w-[80vw] bg-[#0F172A] text-slate-100 border-r border-slate-800 flex flex-col z-10">
-            <div className="h-16 px-5 flex items-center justify-between border-b border-slate-800">
-              <span className="text-base font-semibold text-white">
+          <aside className="relative w-72 max-w-[85vw] max-h-dvh bg-[#0F172A] text-slate-100 border-r border-slate-800 flex flex-col z-10 pl-[env(safe-area-inset-left)]">
+            <div className="h-14 sm:h-16 px-4 sm:px-5 flex items-center justify-between border-b border-slate-800 shrink-0">
+              <span className="text-base font-semibold text-white truncate">
                 Boonsom 7 <span className="text-[#2DD4BF]">Competency</span>
               </span>
               <button
                 type="button"
+                aria-label="ปิดเมนู"
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-white"
+                className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center text-slate-400 hover:text-white rounded-xl"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <nav className="flex-1 p-3 space-y-1">
+            <nav className="flex-1 p-3 space-y-1 overflow-y-auto overscroll-contain">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -297,7 +307,7 @@ function CompetencyWorkspace() {
                       setActiveTab(item.id);
                       setMobileMenuOpen(false);
                     }}
-                    className={`w-full flex items-center gap-3 px-3.5 py-2.5 text-sm font-medium rounded-xl transition-colors ${
+                    className={`w-full min-h-[44px] flex items-center gap-3 px-3.5 py-2.5 text-sm font-medium rounded-xl transition-colors ${
                       isLocked
                         ? 'text-slate-500 opacity-55 cursor-not-allowed'
                         : isActive
@@ -323,7 +333,7 @@ function CompetencyWorkspace() {
                       key={grp.id}
                       type="button"
                       onClick={() => openNewAssessment(grp.defaultFormId)}
-                      className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-medium text-slate-200 hover:text-white hover:bg-[#1E293B] rounded-xl transition-colors"
+                      className="w-full min-h-[42px] flex items-center justify-between px-3.5 py-2 text-xs font-medium text-slate-200 hover:text-white hover:bg-[#1E293B] rounded-xl transition-colors"
                     >
                       <span>ประเมินกลุ่ม {grp.code}</span>
                       <span className={`font-mono text-[11px] font-semibold ${gColor.darkAccentText}`}>
@@ -334,11 +344,19 @@ function CompetencyWorkspace() {
                 })}
               </div>
             </nav>
-            <div className="p-4 border-t border-slate-800">
+            <div className="p-3 sm:p-4 pb-safe border-t border-slate-800 space-y-2.5 shrink-0">
+              <div className="text-xs px-1">
+                <p className="font-medium text-white truncate">
+                  {staffProfile?.fullName || user.displayName || user.email}
+                </p>
+                <p className="text-[#2DD4BF] font-medium truncate mt-0.5">
+                  {isAdmin ? 'หัวหน้าหอผู้ป่วย / ผู้ประเมิน' : 'ผู้รับการประเมิน'}
+                </p>
+              </div>
               <button
                 type="button"
                 onClick={() => void signOut()}
-                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-200 bg-[#1E293B] hover:bg-slate-700 rounded-xl transition-colors"
+                className="w-full min-h-[42px] inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-slate-200 bg-[#1E293B] hover:bg-slate-700 rounded-xl transition-colors"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 ออกจากระบบ
@@ -351,19 +369,20 @@ function CompetencyWorkspace() {
       {/* Main Light Workspace */}
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Top Bar Contract: Breadcrumb on left, 1 Primary CTA on right */}
-        <header className="h-16 bg-white border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between gap-8 no-print">
-          <div className="flex items-center gap-3 min-w-0">
+        <header className="sticky top-0 z-30 min-h-[56px] sm:h-16 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 lg:gap-8 no-print">
+          <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="เปิดเมนู"
-              className="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-xl"
+              className="lg:hidden min-w-[44px] min-h-[44px] -ml-1 inline-flex items-center justify-center text-slate-600 hover:text-slate-900 rounded-xl shrink-0"
             >
               <Menu className="w-5 h-5" />
             </button>
             <div className="min-w-0">
-              <p className="text-xs text-slate-500 truncate">
-                หอผู้ป่วยพิเศษบุญสม 7 / <span className="text-slate-900 font-medium">{activeBreadcrumb}</span>
+              <p className="text-xs sm:text-sm lg:text-xs text-slate-500 truncate">
+                <span className="hidden sm:inline">หอผู้ป่วยพิเศษบุญสม 7 / </span>
+                <span className="text-slate-900 font-medium">{activeBreadcrumb}</span>
               </p>
             </div>
           </div>
@@ -372,15 +391,17 @@ function CompetencyWorkspace() {
             <button
               type="button"
               onClick={() => openNewAssessment('PN')}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap shrink-0"
+              className="min-h-[40px] sm:min-h-[38px] inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 text-xs font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap shrink-0"
             >
-              <Plus className="w-3.5 h-3.5" />
-              ประเมินสมรรถนะใหม่
+              <Plus className="w-3.5 h-3.5 shrink-0" />
+              <span>ประเมิน</span>
+              <span className="hidden sm:inline -ml-1">สมรรถนะ</span>
+              <span className="-ml-1">ใหม่</span>
             </button>
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 max-w-[1360px] w-full mx-auto">
+        <main className="flex-1 min-w-0 p-3 sm:p-5 lg:p-6 pb-safe max-w-[1360px] w-full mx-auto">
           {activeTab === 'dashboard' && (
             <AnalyticsDashboard
               assessments={assessments}

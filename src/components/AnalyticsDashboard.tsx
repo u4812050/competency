@@ -319,14 +319,14 @@ export function AnalyticsDashboard({
   return (
     <div className="space-y-4">
       {/* Bento Filter Bar */}
-      <div className="bg-white border border-slate-200/90 rounded-2xl p-4 space-y-3">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-4 space-y-3">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4">
           {/* 3-Group Selector */}
           <div className="flex flex-wrap items-center gap-1 p-1 bg-slate-100 rounded-xl">
             <button
               type="button"
               onClick={() => handleGroupChange('ALL')}
-              className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+              className={`min-h-[38px] px-3 sm:px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                 selectedGroupFilter === 'ALL'
                   ? 'bg-[#0F172A] text-white'
                   : 'text-slate-600 hover:text-slate-900'
@@ -342,7 +342,7 @@ export function AnalyticsDashboard({
                   key={grp.id}
                   type="button"
                   onClick={() => handleGroupChange(grp.id)}
-                  className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                  className={`min-h-[38px] px-3 sm:px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                     isSelected ? gColor.solidBg : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -352,15 +352,15 @@ export function AnalyticsDashboard({
             })}
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3">
+            <div className="relative w-full sm:w-56">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="ค้นหาชื่อบุคลากร..."
-                className="pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] w-52"
+                className="w-full min-h-[42px] pl-9 pr-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
               />
             </div>
 
@@ -368,7 +368,7 @@ export function AnalyticsDashboard({
               value={periodFilter}
               onChange={(e) => setPeriodFilter(e.target.value)}
               aria-label="กรองรอบการประเมิน"
-              className="px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
+              className="w-full sm:w-auto min-h-[42px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2]"
             >
               <option value="ALL">ทุกรอบการประเมิน</option>
               {availablePeriods.map((p) => (
@@ -387,7 +387,7 @@ export function AnalyticsDashboard({
             <button
               type="button"
               onClick={() => setSelectedFormFilter('ALL')}
-              className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+              className={`min-h-[36px] px-2.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                 selectedFormFilter === 'ALL'
                   ? 'bg-[#0891B2] text-white'
                   : 'bg-[#ECFEFF] text-[#0E7490] hover:bg-[#CFFAFE]'
@@ -400,7 +400,7 @@ export function AnalyticsDashboard({
                 key={f.id}
                 type="button"
                 onClick={() => setSelectedFormFilter(f.id)}
-                className={`px-2.5 py-1 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
+                className={`min-h-[36px] px-2.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
                   selectedFormFilter === f.id
                     ? 'bg-[#0891B2] text-white'
                     : 'bg-slate-100 text-slate-600 hover:text-slate-900'
@@ -429,14 +429,14 @@ export function AnalyticsDashboard({
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4">
           {/* Bento Row 1: Deep Slate Focal Tile + Flat Minimal Pastel KPI Strip */}
-          <div className="sm:col-span-2 lg:col-span-4 bg-[#0F172A] text-white border border-slate-800 rounded-2xl p-6 flex flex-col justify-between gap-4">
+          <div className="sm:col-span-2 lg:col-span-4 bg-[#0F172A] text-white border border-slate-800 rounded-2xl p-4 sm:p-6 flex flex-col justify-between gap-3 sm:gap-4">
             <div className="flex items-center justify-between gap-2">
               <p className="text-xs font-medium text-[#2DD4BF]">คะแนนเฉลี่ยจากผู้บังคับบัญชา</p>
               <span className="text-xs font-mono text-slate-400 tabular-nums">Supervisor</span>
             </div>
-            <p className="text-4xl font-semibold font-mono tabular-nums tracking-tight text-white">
+            <p className="text-3xl sm:text-4xl font-semibold font-mono tabular-nums tracking-tight text-white">
               {kpis.evaluatedCount > 0 ? `${kpis.avgSupervisor}%` : '—'}
             </p>
             <p className="text-xs text-slate-300 tabular-nums">
@@ -445,9 +445,9 @@ export function AnalyticsDashboard({
           </div>
 
           {/* Flat Mint-Emerald Pass Rate Bento Tile */}
-          <div className="lg:col-span-3 bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl p-6 flex flex-col justify-between gap-4">
+          <div className="lg:col-span-3 bg-[#ECFDF5] border border-[#A7F3D0] rounded-2xl p-4 sm:p-6 flex flex-col justify-between gap-3 sm:gap-4">
             <p className="text-xs font-semibold text-emerald-800">อัตราผ่านเกณฑ์มาตรฐาน (≥ 66%)</p>
-            <p className="text-3xl font-semibold text-emerald-700 font-mono tabular-nums">
+            <p className="text-2xl sm:text-3xl font-semibold text-emerald-700 font-mono tabular-nums">
               {kpis.evaluatedCount > 0 ? `${kpis.passRate}%` : '—'}
             </p>
             <p className="text-xs text-emerald-800/80">
@@ -456,9 +456,9 @@ export function AnalyticsDashboard({
           </div>
 
           {/* Flat Indigo Total Forms Bento Tile */}
-          <div className="lg:col-span-3 bg-[#EEF2FF] border border-[#C7D2FE] rounded-2xl p-6 flex flex-col justify-between gap-4">
+          <div className="lg:col-span-3 bg-[#EEF2FF] border border-[#C7D2FE] rounded-2xl p-4 sm:p-6 flex flex-col justify-between gap-3 sm:gap-4">
             <p className="text-xs font-semibold text-[#3730A3]">จำนวนแบบประเมินทั้งหมด</p>
-            <p className="text-3xl font-semibold text-[#4F46E5] font-mono tabular-nums">
+            <p className="text-2xl sm:text-3xl font-semibold text-[#4F46E5] font-mono tabular-nums">
               {kpis.total}
             </p>
             <p className="text-xs text-[#3730A3]/75 tabular-nums">
@@ -467,29 +467,29 @@ export function AnalyticsDashboard({
           </div>
 
           {/* Flat Amber Pending Evaluation Bento Tile */}
-          <div className="sm:col-span-2 lg:col-span-2 bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl p-6 flex flex-col justify-between gap-4">
+          <div className="sm:col-span-2 lg:col-span-2 bg-[#FFFBEB] border border-[#FDE68A] rounded-2xl p-4 sm:p-6 flex flex-col justify-between gap-3 sm:gap-4">
             <p className="text-xs font-semibold text-[#92400E]">รอหัวหน้าประเมิน</p>
-            <p className="text-3xl font-semibold text-[#D97706] font-mono tabular-nums">
+            <p className="text-2xl sm:text-3xl font-semibold text-[#D97706] font-mono tabular-nums">
               {kpis.pendingCount}
             </p>
             <p className="text-xs text-[#92400E]/75">ร่าง / ส่งผลตนเอง</p>
           </div>
 
           {/* Bento Row 2: 7/5 Asymmetric Charts */}
-          <div className="sm:col-span-2 lg:col-span-7 bg-white border border-slate-200/90 rounded-2xl p-6">
-            <div className="mb-4">
-              <h3 className="text-base font-semibold text-slate-900">
+          <div className="sm:col-span-2 lg:col-span-7 bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6">
+            <div className="mb-3 sm:mb-4">
+              <h3 className="text-sm sm:text-base font-semibold text-slate-900">
                 เปรียบเทียบคะแนนสมรรถนะเทียบเกณฑ์มาตรฐาน (ร้อยละ)
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
                 เส้นประอำพัน = ผ่านเกณฑ์ (66%) · เส้นประมรกต = สูงกว่ามาตรฐาน (86%)
               </p>
             </div>
-            <div className="h-80 w-full">
+            <div className="h-64 sm:h-72 lg:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={comparisonChartData}
-                  margin={{ top: 12, right: 16, left: 0, bottom: 12 }}
+                  margin={{ top: 10, right: 8, left: -12, bottom: 8 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#F1F5F9" vertical={false} />
                   <XAxis dataKey="name" tick={{ fill: '#334155', fontSize: 11 }} />
@@ -531,9 +531,9 @@ export function AnalyticsDashboard({
             </div>
           </div>
 
-          <div className="sm:col-span-2 lg:col-span-5 bg-white border border-slate-200/90 rounded-2xl p-6">
-            <div className="mb-4">
-              <h3 className="text-base font-semibold text-slate-900">
+          <div className="sm:col-span-2 lg:col-span-5 bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6">
+            <div className="mb-3 sm:mb-4">
+              <h3 className="text-sm sm:text-base font-semibold text-slate-900">
                 กราฟใยแมงมุม (Self vs Supervisor)
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
@@ -550,9 +550,15 @@ export function AnalyticsDashboard({
                     }`}
               </p>
             </div>
-            <div className="h-80 w-full">
+            <div className="h-64 sm:h-72 lg:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="72%" data={comparisonChartData}>
+                <RadarChart
+                  cx="50%"
+                  cy="50%"
+                  outerRadius="64%"
+                  margin={{ top: 8, right: 20, bottom: 8, left: 20 }}
+                  data={comparisonChartData}
+                >
                   <PolarGrid stroke="#E2E8F0" />
                   <PolarAngleAxis dataKey="name" tick={{ fill: '#334155', fontSize: 11 }} />
                   <PolarRadiusAxis
@@ -593,7 +599,7 @@ export function AnalyticsDashboard({
           </div>
 
           {/* Bento Row 3: 4/5/3 Insights Grid */}
-          <div className="sm:col-span-2 lg:col-span-4 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between">
+          <div className="sm:col-span-2 lg:col-span-4 bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6 flex flex-col justify-between">
             <div>
               <h3 className="text-base font-semibold text-slate-900">
                 สัดส่วนระดับผลสมรรถนะ
@@ -651,9 +657,9 @@ export function AnalyticsDashboard({
             </div>
           </div>
 
-          <div className="sm:col-span-2 lg:col-span-5 bg-white border border-slate-200/90 rounded-2xl p-6">
+          <div className="sm:col-span-2 lg:col-span-5 bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6">
             <div className="mb-4">
-              <h3 className="text-base font-semibold text-slate-900">
+              <h3 className="text-sm sm:text-base font-semibold text-slate-900">
                 หัวข้อสมรรถนะที่ควรเร่งพัฒนา
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
@@ -662,7 +668,7 @@ export function AnalyticsDashboard({
             </div>
 
             {topGapItems.length === 0 ? (
-              <div className="py-12 text-center text-sm text-slate-500">
+              <div className="py-10 sm:py-12 text-center text-sm text-slate-500">
                 ยังไม่มีคะแนนประเมินจากผู้บังคับบัญชาเพียงพอสำหรับการวิเคราะห์รายข้อ
               </div>
             ) : (
@@ -704,9 +710,9 @@ export function AnalyticsDashboard({
             )}
           </div>
 
-          <div className="sm:col-span-2 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-6 flex flex-col justify-between">
+          <div className="sm:col-span-2 lg:col-span-3 bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-6 flex flex-col justify-between">
             <div>
-              <h3 className="text-base font-semibold text-slate-900">รายการประเมินล่าสุด</h3>
+              <h3 className="text-sm sm:text-base font-semibold text-slate-900">รายการประเมินล่าสุด</h3>
               <p className="text-xs text-slate-500 mt-0.5 mb-3">คลิกเพื่อเปิดดูกราฟสรุปผลรายบุคคล</p>
               <div className="divide-y divide-slate-100">
                 {filtered.slice(0, 5).map((a) => {
@@ -718,7 +724,7 @@ export function AnalyticsDashboard({
                       key={a.id}
                       type="button"
                       onClick={() => onSelectAssessment(a)}
-                      className="w-full py-3 first:pt-1 last:pb-1 flex items-center justify-between gap-3 text-left hover:bg-slate-50 px-2 -mx-2 rounded-xl transition-colors"
+                      className="w-full min-h-[48px] py-3 first:pt-1 last:pb-1 flex items-center justify-between gap-3 text-left hover:bg-slate-50 px-2 -mx-2 rounded-xl transition-colors"
                     >
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-slate-900 truncate">

@@ -57,23 +57,33 @@ export function AssessmentDetailModal({
   }));
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-[1px] flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#F4F7FB] border border-slate-200 rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-y-auto shadow-lg">
+    <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-[1px] flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div className="bg-[#F4F7FB] border border-slate-200 rounded-2xl w-full max-w-5xl max-h-[92dvh] overflow-y-auto overscroll-contain shadow-lg">
         {/* Top Action Bar */}
-        <div className="sticky top-0 z-10 bg-white border-b border-slate-200/80 px-6 py-4 flex items-center justify-between gap-4 no-print">
-          <div className="min-w-0">
-            <p className="text-xs text-[#0E7490] font-medium">
-              {form.code} · {assessment.assessmentPeriod} · {assessment.ward}
-            </p>
-            <h2 className="text-lg font-semibold text-slate-900 truncate">
-              รายงานสรุปผลสมรรถนะ: {assessment.staffName}
-            </h2>
+        <div className="sticky top-0 z-10 bg-white border-b border-slate-200/80 px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4 no-print">
+          <div className="flex items-start justify-between gap-2 min-w-0">
+            <div className="min-w-0">
+              <p className="text-xs text-[#0E7490] font-medium truncate">
+                {form.code} · {assessment.assessmentPeriod} · {assessment.ward}
+              </p>
+              <h2 className="text-base sm:text-lg font-semibold text-slate-900 truncate">
+                รายงานสรุปผลสมรรถนะ: {assessment.staffName}
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="ปิดหน้าต่าง"
+              className="sm:hidden min-w-[40px] min-h-[40px] inline-flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors shrink-0"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={() => onEdit(assessment)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl transition-colors whitespace-nowrap"
+              className="flex-1 sm:flex-initial min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl transition-colors whitespace-nowrap"
             >
               <Edit3 className="w-3.5 h-3.5" />
               แก้ไข / ประเมินผล
@@ -81,7 +91,7 @@ export function AssessmentDetailModal({
             <button
               type="button"
               onClick={() => window.print()}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap"
+              className="flex-1 sm:flex-initial min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap"
             >
               <Printer className="w-3.5 h-3.5" />
               พิมพ์รายงาน
@@ -90,7 +100,7 @@ export function AssessmentDetailModal({
               type="button"
               onClick={onClose}
               aria-label="ปิดหน้าต่าง"
-              className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
+              className="hidden sm:inline-flex min-w-[40px] min-h-[40px] items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -98,12 +108,12 @@ export function AssessmentDetailModal({
         </div>
 
         {/* Printable Bento Content */}
-        <div className="p-5 space-y-4">
+        <div className="p-3.5 sm:p-5 space-y-4">
           {/* Official Hospital Header Bento Tile */}
-          <div className="bg-white border border-slate-200/80 rounded-2xl p-5">
+          <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5">
             <p className="text-xs text-[#0E7490] font-medium">{form.subtitle}</p>
-            <h3 className="text-base font-semibold text-slate-900 mt-1">{form.title}</h3>
-            <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-700 pt-3 border-t border-slate-100">
+            <h3 className="text-sm sm:text-base font-semibold text-slate-900 mt-1">{form.title}</h3>
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 text-xs text-slate-700 pt-3 border-t border-slate-100">
               <div>
                 <span className="text-slate-500">ชื่อ–นามสกุล: </span>
                 <span className="font-medium text-slate-900">{assessment.staffName}</span>
@@ -170,13 +180,19 @@ export function AssessmentDetailModal({
           {/* Graphical Breakdown Bento Tiles */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 print-break-inside-avoid">
             {chartData.length >= 3 ? (
-              <div className="bg-white border border-slate-200/80 rounded-2xl p-5">
+              <div className="bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5">
                 <h4 className="text-sm font-semibold text-slate-900 mb-2">
                   กราฟใยแมงมุมสมรรถนะรายหมวด / ระดับ
                 </h4>
-                <div className="h-64 w-full">
+                <div className="h-56 sm:h-64 w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
+                    <RadarChart
+                      cx="50%"
+                      cy="50%"
+                      outerRadius="64%"
+                      margin={{ top: 8, right: 20, bottom: 8, left: 20 }}
+                      data={chartData}
+                    >
                       <PolarGrid stroke="#E2E8F0" />
                       <PolarAngleAxis dataKey="name" tick={{ fill: '#334155', fontSize: 11 }} />
                       <PolarRadiusAxis domain={[0, 100]} tick={{ fill: '#64748B', fontSize: 10 }} />
@@ -214,16 +230,16 @@ export function AssessmentDetailModal({
             ) : null}
 
             <div
-              className={`bg-white border border-slate-200/80 rounded-2xl p-5 ${
+              className={`bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-5 ${
                 chartData.length < 3 ? 'lg:col-span-2' : ''
               }`}
             >
               <h4 className="text-sm font-semibold text-slate-900 mb-2">
                 คะแนนเปรียบเทียบรายหมวด / ระดับ (ร้อยละ)
               </h4>
-              <div className="h-64 w-full">
+              <div className="h-56 sm:h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} margin={{ top: 10, right: 16, left: 0, bottom: 8 }}>
+                  <BarChart data={chartData} margin={{ top: 10, right: 8, left: -12, bottom: 8 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
                     <XAxis dataKey="name" tick={{ fill: '#334155', fontSize: 11 }} />
                     <YAxis domain={[0, 100]} unit="%" tick={{ fill: '#64748B', fontSize: 11 }} />
@@ -267,40 +283,42 @@ export function AssessmentDetailModal({
 
           {/* Section Breakdown Table Bento Tile */}
           <div className="bg-white border border-slate-200/80 rounded-2xl overflow-hidden">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-50/80 border-b border-slate-200/80 text-xs text-slate-600">
-                <tr>
-                  <th className="text-left px-4 py-2.5 font-medium">หมวด / ระดับสมรรถนะ</th>
-                  <th className="text-right px-4 py-2.5 font-medium">จำนวนข้อ</th>
-                  <th className="text-right px-4 py-2.5 font-medium">ตนเอง (คะแนน)</th>
-                  <th className="text-right px-4 py-2.5 font-medium">ตนเอง (%)</th>
-                  <th className="text-right px-4 py-2.5 font-medium">ผู้บังคับบัญชา (คะแนน)</th>
-                  <th className="text-right px-4 py-2.5 font-medium">ผู้บังคับบัญชา (%)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {calc.sectionBreakdowns.map((sec) => (
-                  <tr key={sec.sectionId}>
-                    <td className="px-4 py-2.5 text-slate-900">{sec.shortTitle}</td>
-                    <td className="px-4 py-2.5 text-right font-mono tabular-nums text-slate-600">
-                      {sec.itemCount}
-                    </td>
-                    <td className="px-4 py-2.5 text-right font-mono tabular-nums text-slate-900">
-                      {sec.selfScore} / {sec.maxScore}
-                    </td>
-                    <td className="px-4 py-2.5 text-right font-mono tabular-nums text-[#4F46E5] font-medium">
-                      {sec.selfPercentage}%
-                    </td>
-                    <td className="px-4 py-2.5 text-right font-mono tabular-nums text-slate-900">
-                      {sec.supervisorScore} / {sec.maxScore}
-                    </td>
-                    <td className="px-4 py-2.5 text-right font-mono tabular-nums text-[#0E7490] font-semibold">
-                      {sec.supervisorPercentage}%
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[520px] sm:min-w-0 text-xs sm:text-sm">
+                <thead className="bg-slate-50/80 border-b border-slate-200/80 text-xs text-slate-600">
+                  <tr>
+                    <th className="text-left px-3 sm:px-4 py-2.5 font-medium">หมวด / ระดับสมรรถนะ</th>
+                    <th className="text-right px-3 sm:px-4 py-2.5 font-medium">จำนวนข้อ</th>
+                    <th className="text-right px-3 sm:px-4 py-2.5 font-medium">ตนเอง (คะแนน)</th>
+                    <th className="text-right px-3 sm:px-4 py-2.5 font-medium">ตนเอง (%)</th>
+                    <th className="text-right px-3 sm:px-4 py-2.5 font-medium">ผู้บังคับบัญชา (คะแนน)</th>
+                    <th className="text-right px-3 sm:px-4 py-2.5 font-medium">ผู้บังคับบัญชา (%)</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {calc.sectionBreakdowns.map((sec) => (
+                    <tr key={sec.sectionId}>
+                      <td className="px-3 sm:px-4 py-2.5 text-slate-900">{sec.shortTitle}</td>
+                      <td className="px-3 sm:px-4 py-2.5 text-right font-mono tabular-nums text-slate-600">
+                        {sec.itemCount}
+                      </td>
+                      <td className="px-3 sm:px-4 py-2.5 text-right font-mono tabular-nums text-slate-900">
+                        {sec.selfScore} / {sec.maxScore}
+                      </td>
+                      <td className="px-3 sm:px-4 py-2.5 text-right font-mono tabular-nums text-[#4F46E5] font-medium">
+                        {sec.selfPercentage}%
+                      </td>
+                      <td className="px-3 sm:px-4 py-2.5 text-right font-mono tabular-nums text-slate-900">
+                        {sec.supervisorScore} / {sec.maxScore}
+                      </td>
+                      <td className="px-3 sm:px-4 py-2.5 text-right font-mono tabular-nums text-[#0E7490] font-semibold">
+                        {sec.supervisorPercentage}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* Feedback Summary Bento Tiles */}
