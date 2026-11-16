@@ -15,8 +15,11 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
-WORKSPACE_SCOPES.forEach((scope) => googleProvider.addScope(scope));
 googleProvider.setCustomParameters({ prompt: 'select_account' });
+
+export const gmailGoogleProvider = new GoogleAuthProvider();
+WORKSPACE_SCOPES.forEach((scope) => gmailGoogleProvider.addScope(scope));
+gmailGoogleProvider.setCustomParameters({ prompt: 'consent select_account' });
 
 let cachedGmailAccessToken: string | null = null;
 
@@ -34,8 +37,8 @@ export async function requestGmailAccessToken(forceRefresh = false): Promise<str
   }
 
   const result = auth.currentUser
-    ? await reauthenticateWithPopup(auth.currentUser, googleProvider)
-    : await signInWithPopup(auth, googleProvider);
+    ? await reauthenticateWithPopup(auth.currentUser, gmailGoogleProvider)
+    : await signInWithPopup(auth, gmailGoogleProvider);
 
   const credential = GoogleAuthProvider.credentialFromResult(result);
   if (!credential?.accessToken) {

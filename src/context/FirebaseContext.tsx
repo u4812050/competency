@@ -116,8 +116,28 @@ export function FirebaseProvider({ children }: { children: React.ReactNode }) {
         setCachedGmailAccessToken(credential.accessToken);
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'ไม่สามารถเข้าสู่ระบบได้';
-      setAuthError(msg);
+      const code =
+        typeof err === 'object' && err !== null && 'code' in err
+          ? String((err as { code?: unknown }).code)
+          : '';
+
+      if (code === 'auth/unauthorized-domain') {
+        const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+        setAuthError(
+          `โดเมน ${hostname || 'นี้'} ยังไม่ได้รับอนุญาตใน Firebase Authentication กรุณาเพิ่มโดเมนนี้ใน Authorized domains ของโปรเจกต์ Firebase`
+        );
+      } else if (code === 'auth/popup-blocked') {
+        setAuthError(
+          'เบราว์เซอร์บล็อกหน้าต่างเข้าสู่ระบบ (Popup) กรุณาอนุญาต Pop-up สำหรับเว็บไซต์นี้แล้วลองใหม่อีกครั้ง'
+        );
+      } else if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
+        setAuthError('คุณได้ปิดหน้าต่างเข้าสู่ระบบก่อนดำเนินการเสร็จสิ้น');
+      } else if (code === 'auth/network-request-failed') {
+        setAuthError('การเชื่อมต่อเครือข่ายขัดข้อง กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่');
+      } else {
+        const msg = err instanceof Error ? err.message : 'ไม่สามารถเข้าสู่ระบบได้';
+        setAuthError(msg);
+      }
     }
   };
 
