@@ -14,6 +14,7 @@ import {
 import { AnalyticsDashboard } from './components/AnalyticsDashboard';
 import { AssessmentDetailModal } from './components/AssessmentDetailModal';
 import { AssessmentEditor } from './components/AssessmentEditor';
+import { PWAInstallButton } from './components/PWAInstallButton';
 import { RecordsTable, type StaffPrefill } from './components/RecordsTable';
 import { StaffProfileView } from './components/StaffProfileView';
 import { FirebaseProvider, useFirebase } from './context/FirebaseContext';
@@ -126,14 +127,17 @@ function CompetencyWorkspace() {
               <p className="text-xs text-slate-500">
                 เข้าสู่ระบบด้วยบัญชี Google เพื่อบันทึกและดูผลประเมินแบบเรียลไทม์
               </p>
-              <button
-                type="button"
-                onClick={() => void signInWithGoogle()}
-                className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap shrink-0"
-              >
-                <UserCheck className="w-4 h-4" />
-                เข้าสู่ระบบด้วย Google
-              </button>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+                <PWAInstallButton variant="light" />
+                <button
+                  type="button"
+                  onClick={() => void signInWithGoogle()}
+                  className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-[#0891B2] hover:bg-[#0E7490] rounded-xl transition-colors whitespace-nowrap shrink-0"
+                >
+                  <UserCheck className="w-4 h-4" />
+                  เข้าสู่ระบบด้วย Google
+                </button>
+              </div>
             </div>
           </div>
 
@@ -177,8 +181,13 @@ function CompetencyWorkspace() {
     <div className="min-h-dvh bg-[#F4F7FB] flex">
       {/* Deep Slate Desktop & Tablet Landscape Sidebar */}
       <aside className="hidden lg:flex lg:flex-col lg:w-60 xl:w-64 lg:shrink-0 bg-[#0F172A] text-slate-100 border-r border-slate-800 no-print">
-        <div className="h-16 px-5 flex items-center border-b border-slate-800">
-          <span className="text-base font-semibold tracking-tight text-white whitespace-nowrap">
+        <div className="h-16 px-4 flex items-center gap-2.5 border-b border-slate-800">
+          <img
+            src="/apple-touch-icon.png"
+            alt="Boonsom 7"
+            className="w-7 h-7 rounded-lg border border-slate-700 shrink-0"
+          />
+          <span className="text-base font-semibold tracking-tight text-white whitespace-nowrap truncate">
             Boonsom 7 <span className="text-[#2DD4BF]">Competency</span>
           </span>
         </div>
@@ -245,7 +254,7 @@ function CompetencyWorkspace() {
           </div>
         </nav>
 
-        <div className="p-4 border-t border-slate-800 space-y-3">
+        <div className="p-4 border-t border-slate-800 space-y-2.5">
           <div className="text-xs">
             <p className="font-medium text-white truncate">
               {staffProfile?.fullName || user.displayName || user.email}
@@ -254,6 +263,7 @@ function CompetencyWorkspace() {
               {isAdmin ? 'หัวหน้าหอผู้ป่วย / ผู้ประเมิน' : 'ผู้รับการประเมิน'}
             </p>
           </div>
+          <PWAInstallButton variant="dark" />
           <button
             type="button"
             onClick={() => void signOut()}
@@ -274,9 +284,16 @@ function CompetencyWorkspace() {
           />
           <aside className="relative w-72 max-w-[85vw] max-h-dvh bg-[#0F172A] text-slate-100 border-r border-slate-800 flex flex-col z-10 pl-[env(safe-area-inset-left)]">
             <div className="h-14 sm:h-16 px-4 sm:px-5 flex items-center justify-between border-b border-slate-800 shrink-0">
-              <span className="text-base font-semibold text-white truncate">
-                Boonsom 7 <span className="text-[#2DD4BF]">Competency</span>
-              </span>
+              <div className="flex items-center gap-2.5 min-w-0">
+                <img
+                  src="/apple-touch-icon.png"
+                  alt="Boonsom 7"
+                  className="w-7 h-7 rounded-lg border border-slate-700 shrink-0"
+                />
+                <span className="text-base font-semibold text-white truncate">
+                  Boonsom 7 <span className="text-[#2DD4BF]">Competency</span>
+                </span>
+              </div>
               <button
                 type="button"
                 aria-label="ปิดเมนู"
@@ -353,6 +370,7 @@ function CompetencyWorkspace() {
                   {isAdmin ? 'หัวหน้าหอผู้ป่วย / ผู้ประเมิน' : 'ผู้รับการประเมิน'}
                 </p>
               </div>
+              <PWAInstallButton variant="dark" />
               <button
                 type="button"
                 onClick={() => void signOut()}
