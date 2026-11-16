@@ -1,0 +1,292 @@
+{
+  "entities": {
+    "StaffProfile": {
+      "title": "StaffProfile",
+      "description": "Profile information for nursing staff (RN, PN, HP) in Boonsom 7 Ward",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the staff member",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Full name of the nursing staff member",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "age": {
+          "type": "number",
+          "description": "Age in years"
+        },
+        "ward": {
+          "type": "string",
+          "description": "Hospital ward name",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "positionType": {
+          "type": "string",
+          "description": "Nursing role category",
+          "enum": ["RN", "PN", "HP"]
+        },
+        "totalYears": {
+          "type": "number",
+          "description": "Total years of clinical practice"
+        },
+        "wardYears": {
+          "type": "number",
+          "description": "Years of practice in the current ward"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp"
+        }
+      },
+      "required": [
+        "uid",
+        "fullName",
+        "age",
+        "ward",
+        "positionType",
+        "totalYears",
+        "wardYears",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CompetencyAssessment": {
+      "title": "CompetencyAssessment",
+      "description": "Unit-specific competency assessment record for Boonsom 7 Ward",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the record creator",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "staffUid": {
+          "type": "string",
+          "description": "UID or staff identifier of the assessed personnel",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "staffName": {
+          "type": "string",
+          "description": "Name of the assessed staff member",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "staffAge": {
+          "type": "number",
+          "description": "Age of the assessed staff member"
+        },
+        "ward": {
+          "type": "string",
+          "description": "Ward name",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "positionType": {
+          "type": "string",
+          "description": "Personnel role type",
+          "enum": ["RN", "PN", "HP"]
+        },
+        "totalYears": {
+          "type": "number",
+          "description": "Total years of experience"
+        },
+        "wardYears": {
+          "type": "number",
+          "description": "Years in current ward"
+        },
+        "formId": {
+          "type": "string",
+          "description": "Specific competency form template ID",
+          "enum": [
+            "PN",
+            "HP",
+            "STN_Colorectal",
+            "STN_CA_Breast",
+            "STN_AVF",
+            "STN_LT",
+            "STN_KT"
+          ]
+        },
+        "assessmentPeriod": {
+          "type": "string",
+          "description": "Assessment round or fiscal year label",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "status": {
+          "type": "string",
+          "description": "Assessment workflow status",
+          "enum": ["draft", "self_submitted", "evaluated", "archived"]
+        },
+        "selfScores": {
+          "type": "object",
+          "description": "Map of competency item IDs to self-assessment scores (1-3)"
+        },
+        "supervisorScores": {
+          "type": "object",
+          "description": "Map of competency item IDs to supervisor scores (1-3)"
+        },
+        "itemMethods": {
+          "type": "object",
+          "description": "Map of competency item IDs to evaluation method codes (O, D, W, V, R, WS)"
+        },
+        "selfTotalScore": {
+          "type": "number",
+          "description": "Sum of self-assessment scores"
+        },
+        "selfMaxScore": {
+          "type": "number",
+          "description": "Maximum possible self-assessment score"
+        },
+        "selfPercentage": {
+          "type": "number",
+          "description": "Calculated self-assessment percentage (0-100)"
+        },
+        "supervisorTotalScore": {
+          "type": "number",
+          "description": "Sum of supervisor assessment scores"
+        },
+        "supervisorMaxScore": {
+          "type": "number",
+          "description": "Maximum possible supervisor score"
+        },
+        "supervisorPercentage": {
+          "type": "number",
+          "description": "Calculated supervisor assessment percentage (0-100)"
+        },
+        "supervisorTier": {
+          "type": "string",
+          "description": "Result tier classification",
+          "enum": ["pending", "exceed", "meet", "need_improvement"]
+        },
+        "supervisorFeedback": {
+          "type": "array",
+          "description": "Selected supervisor action recommendations (max 5)"
+        },
+        "supervisorOtherNote": {
+          "type": "string",
+          "description": "Additional supervisor note",
+          "maxLength": 500
+        },
+        "selfFeedback": {
+          "type": "array",
+          "description": "Selected assessee feedback options (max 5)"
+        },
+        "selfOtherNote": {
+          "type": "string",
+          "description": "Additional assessee note",
+          "maxLength": 500
+        },
+        "evaluatorName": {
+          "type": "string",
+          "description": "Name of evaluating head nurse or supervisor",
+          "maxLength": 120
+        },
+        "evaluatorUid": {
+          "type": "string",
+          "description": "UID of evaluating head nurse or supervisor",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server last update timestamp"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "staffUid",
+        "staffName",
+        "staffAge",
+        "ward",
+        "positionType",
+        "totalYears",
+        "wardYears",
+        "formId",
+        "assessmentPeriod",
+        "status",
+        "selfScores",
+        "supervisorScores",
+        "itemMethods",
+        "selfTotalScore",
+        "selfMaxScore",
+        "selfPercentage",
+        "supervisorTotalScore",
+        "supervisorMaxScore",
+        "supervisorPercentage",
+        "supervisorTier",
+        "supervisorFeedback",
+        "supervisorOtherNote",
+        "selfFeedback",
+        "selfOtherNote",
+        "evaluatorName",
+        "evaluatorUid",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AdminRole": {
+      "title": "AdminRole",
+      "description": "Authorized head nurse / supervisor admin record",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "grantedBy": {
+          "type": "string",
+          "description": "Admin UID who granted role",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp"
+        }
+      },
+      "required": ["uid", "grantedBy", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/staffProfiles/{userId}": {
+      "schema": { "$ref": "#/entities/StaffProfile" },
+      "description": "Private nursing staff profile documents restricted to owner and head nurse admins"
+    },
+    "/assessments/{assessmentId}": {
+      "schema": { "$ref": "#/entities/CompetencyAssessment" },
+      "description": "Real-time unit-specific competency evaluation documents"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminRole" },
+      "description": "Head nurse / evaluator role registry"
+    }
+  }
+}

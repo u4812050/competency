@@ -1,0 +1,6 @@
+{
+  "name": "Boonsom 7 Competency Suite",
+  "description": "ระบบประเมินสมรรถนะเฉพาะหน่วยงาน (Unit-Specific Competency) หอผู้ป่วยพิเศษบุญสม 7 โรงพยาบาลมหาราชนครเชียงใหม่ คำนวณคะแนน จัดเก็บข้อมูลแบบเรียลไทม์ และสรุปผลเชิงกราฟิก",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

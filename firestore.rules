@@ -1,0 +1,191 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerifiedUser() && request.auth.token.email.lower() in ['kakura050@gmail.com', 'awanvilai@gmail.com'];
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (isVerifiedUser() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+
+    function isValidStaffProfile(data) {
+      return data.keys().hasAll([
+        'uid', 'fullName', 'age', 'ward', 'positionType',
+        'totalYears', 'wardYears', 'createdAt', 'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'uid', 'fullName', 'age', 'ward', 'positionType',
+        'totalYears', 'wardYears', 'createdAt', 'updatedAt'
+      ]) &&
+      isValidId(data.uid) &&
+      data.fullName is string && data.fullName.size() >= 1 && data.fullName.size() <= 120 &&
+      data.age is number && data.age >= 18 && data.age <= 85 &&
+      data.ward is string && data.ward.size() >= 1 && data.ward.size() <= 100 &&
+      data.positionType in ['RN', 'PN', 'HP'] &&
+      data.totalYears is number && data.totalYears >= 0 && data.totalYears <= 65 &&
+      data.wardYears is number && data.wardYears >= 0 && data.wardYears <= 65 &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
+    function isValidAssessment(data) {
+      return data.keys().hasAll([
+        'ownerUid', 'staffUid', 'staffName', 'staffAge', 'ward',
+        'positionType', 'totalYears', 'wardYears', 'formId', 'assessmentPeriod',
+        'status', 'selfScores', 'supervisorScores', 'itemMethods',
+        'selfTotalScore', 'selfMaxScore', 'selfPercentage',
+        'supervisorTotalScore', 'supervisorMaxScore', 'supervisorPercentage',
+        'supervisorTier', 'supervisorFeedback', 'supervisorOtherNote',
+        'selfFeedback', 'selfOtherNote', 'evaluatorName', 'evaluatorUid',
+        'createdAt', 'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'ownerUid', 'staffUid', 'staffName', 'staffAge', 'ward',
+        'positionType', 'totalYears', 'wardYears', 'formId', 'assessmentPeriod',
+        'status', 'selfScores', 'supervisorScores', 'itemMethods',
+        'selfTotalScore', 'selfMaxScore', 'selfPercentage',
+        'supervisorTotalScore', 'supervisorMaxScore', 'supervisorPercentage',
+        'supervisorTier', 'supervisorFeedback', 'supervisorOtherNote',
+        'selfFeedback', 'selfOtherNote', 'evaluatorName', 'evaluatorUid',
+        'createdAt', 'updatedAt'
+      ]) &&
+      isValidId(data.ownerUid) &&
+      isValidId(data.staffUid) &&
+      data.staffName is string && data.staffName.size() >= 1 && data.staffName.size() <= 120 &&
+      data.staffAge is number && data.staffAge >= 18 && data.staffAge <= 85 &&
+      data.ward is string && data.ward.size() >= 1 && data.ward.size() <= 100 &&
+      data.positionType in ['RN', 'PN', 'HP'] &&
+      data.totalYears is number && data.totalYears >= 0 && data.totalYears <= 65 &&
+      data.wardYears is number && data.wardYears >= 0 && data.wardYears <= 65 &&
+      data.formId in ['PN', 'HP', 'STN_Colorectal', 'STN_CA_Breast', 'STN_AVF', 'STN_LT', 'STN_KT'] &&
+      data.assessmentPeriod is string && data.assessmentPeriod.size() >= 1 && data.assessmentPeriod.size() <= 50 &&
+      data.status in ['draft', 'self_submitted', 'evaluated', 'archived'] &&
+      data.selfScores is map && data.selfScores.size() <= 60 &&
+      data.supervisorScores is map && data.supervisorScores.size() <= 60 &&
+      data.itemMethods is map && data.itemMethods.size() <= 60 &&
+      data.selfTotalScore is number && data.selfTotalScore >= 0 && data.selfTotalScore <= 200 &&
+      data.selfMaxScore is number && data.selfMaxScore >= 0 && data.selfMaxScore <= 200 &&
+      data.selfPercentage is number && data.selfPercentage >= 0 && data.selfPercentage <= 100 &&
+      data.supervisorTotalScore is number && data.supervisorTotalScore >= 0 && data.supervisorTotalScore <= 200 &&
+      data.supervisorMaxScore is number && data.supervisorMaxScore >= 0 && data.supervisorMaxScore <= 200 &&
+      data.supervisorPercentage is number && data.supervisorPercentage >= 0 && data.supervisorPercentage <= 100 &&
+      data.supervisorTier in ['pending', 'exceed', 'meet', 'need_improvement'] &&
+      data.supervisorFeedback is list && data.supervisorFeedback.size() <= 5 &&
+      data.supervisorFeedback.hasOnly(['training', 'supervision', 'policy_review', 'support', 'other']) &&
+      data.supervisorOtherNote is string && data.supervisorOtherNote.size() <= 500 &&
+      data.selfFeedback is list && data.selfFeedback.size() <= 5 &&
+      data.selfFeedback.hasOnly(['training', 'supervision', 'policy_review', 'support', 'other']) &&
+      data.selfOtherNote is string && data.selfOtherNote.size() <= 500 &&
+      data.evaluatorName is string && data.evaluatorName.size() <= 120 &&
+      data.evaluatorUid is string && data.evaluatorUid.size() <= 128 &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
+    function isValidAdminRole(data) {
+      return data.keys().hasAll(['uid', 'grantedBy', 'createdAt']) &&
+        data.keys().hasOnly(['uid', 'grantedBy', 'createdAt']) &&
+        isValidId(data.uid) &&
+        isValidId(data.grantedBy) &&
+        data.createdAt is timestamp;
+    }
+
+    match /staffProfiles/{userId} {
+      allow get: if isVerifiedUser() && isValidId(userId) && (userId == request.auth.uid || isAdmin());
+      allow list: if isBootstrappedAdmin() || (isVerifiedUser() && existing().uid == request.auth.uid);
+      allow create: if isVerifiedUser() && isValidId(userId) && isValidStaffProfile(incoming()) &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time &&
+        ((userId == request.auth.uid && incoming().uid == request.auth.uid) || isAdmin());
+      allow update: if isVerifiedUser() && isValidId(userId) && isValidStaffProfile(incoming()) &&
+        incoming().uid == existing().uid &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        incoming().diff(existing()).affectedKeys().hasOnly([
+          'fullName', 'age', 'ward', 'positionType', 'totalYears', 'wardYears', 'updatedAt'
+        ]) &&
+        (userId == request.auth.uid || isAdmin());
+      allow delete: if isVerifiedUser() && isValidId(userId) && isAdmin();
+    }
+
+    match /assessments/{assessmentId} {
+      allow get: if isVerifiedUser() && isValidId(assessmentId) &&
+        (existing().ownerUid == request.auth.uid || existing().staffUid == request.auth.uid || isAdmin());
+      allow list: if isBootstrappedAdmin() ||
+        (isVerifiedUser() && (existing().ownerUid == request.auth.uid || existing().staffUid == request.auth.uid));
+      allow create: if isVerifiedUser() && isValidId(assessmentId) && isValidAssessment(incoming()) &&
+        incoming().ownerUid == request.auth.uid &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time &&
+        (
+          isAdmin() ||
+          (
+            incoming().status in ['draft', 'self_submitted'] &&
+            incoming().supervisorScores.size() == 0 &&
+            incoming().supervisorTotalScore == 0 &&
+            incoming().supervisorPercentage == 0 &&
+            incoming().supervisorTier == 'pending' &&
+            incoming().evaluatorUid == '' &&
+            incoming().evaluatorName == ''
+          )
+        );
+      allow update: if isVerifiedUser() && isValidId(assessmentId) && isValidAssessment(incoming()) &&
+        incoming().ownerUid == existing().ownerUid &&
+        incoming().formId == existing().formId &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time &&
+        (
+          isAdmin() ||
+          (
+            existing().ownerUid == request.auth.uid &&
+            existing().status in ['draft', 'self_submitted'] &&
+            incoming().status in ['draft', 'self_submitted'] &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'staffName', 'staffAge', 'ward', 'positionType', 'totalYears', 'wardYears',
+              'assessmentPeriod', 'status', 'selfScores', 'selfTotalScore', 'selfMaxScore',
+              'selfPercentage', 'selfFeedback', 'selfOtherNote', 'updatedAt'
+            ])
+          )
+        );
+      allow delete: if isVerifiedUser() && isValidId(assessmentId) &&
+        ((existing().ownerUid == request.auth.uid && existing().status == 'draft') || isAdmin());
+    }
+
+    match /admins/{adminId} {
+      allow get: if isVerifiedUser() && isValidId(adminId) && (adminId == request.auth.uid || isAdmin());
+      allow list: if isBootstrappedAdmin();
+      allow create: if isVerifiedUser() && isValidId(adminId) && isValidAdminRole(incoming()) &&
+        incoming().uid == adminId &&
+        incoming().grantedBy == request.auth.uid &&
+        incoming().createdAt == request.time &&
+        isAdmin();
+      allow update: if false;
+      allow delete: if isVerifiedUser() && isValidId(adminId) && isAdmin();
+    }
+  }
+}
