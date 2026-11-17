@@ -210,6 +210,7 @@ export function subscribeAssessments(
 export interface SaveAssessmentInput {
   id?: string;
   ownerUid: string;
+  ownerEmail?: string;
   staffUid: string;
   staffName: string;
   staffAge: number;
@@ -257,6 +258,9 @@ export async function saveAssessment(
   const docRef = doc(db, 'assessments', assessmentId);
 
   const basePayload = {
+    ...(input.ownerEmail !== undefined
+      ? { ownerEmail: clampString(input.ownerEmail, 254) }
+      : {}),
     staffName: clampString(input.staffName, 120) || 'ไม่ระบุชื่อบุคลากร',
     staffAge: clampNumber(Math.round(input.staffAge), 18, 85),
     ward: clampString(input.ward, 100) || 'หอผู้ป่วยพิเศษบุญสม 7',

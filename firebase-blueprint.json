@@ -76,6 +76,11 @@
           "maxLength": 128,
           "pattern": "^[a-zA-Z0-9_\\-]+$"
         },
+        "ownerEmail": {
+          "type": "string",
+          "description": "Email address of the assessment owner/assessee for result reply notifications",
+          "maxLength": 254
+        },
         "staffUid": {
           "type": "string",
           "description": "UID or staff identifier of the assessed personnel",

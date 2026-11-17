@@ -63,6 +63,7 @@ export interface StaffProfile {
 export interface CompetencyAssessment {
   id: string;
   ownerUid: string;
+  ownerEmail?: string;
   staffUid: string;
   staffName: string;
   staffAge: number;

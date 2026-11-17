@@ -432,6 +432,7 @@ function CompetencyWorkspace() {
           {activeTab === 'assess' && (
             <AssessmentEditor
               userUid={user.uid}
+              userEmail={user.email || ''}
               userDisplayName={user.displayName || user.email || 'ผู้ใช้งาน'}
               isAdmin={isAdmin}
               staffProfile={staffProfile}

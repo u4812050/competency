@@ -36,6 +36,7 @@ import {
 
 interface AssessmentEditorProps {
   userUid: string;
+  userEmail: string;
   userDisplayName: string;
   isAdmin: boolean;
   staffProfile: StaffProfile | null;
@@ -48,6 +49,7 @@ interface AssessmentEditorProps {
 
 export function AssessmentEditor({
   userUid,
+  userEmail,
   userDisplayName,
   isAdmin,
   staffProfile,
@@ -259,10 +261,17 @@ export function AssessmentEditor({
       ? Object.fromEntries(Object.entries(supervisorScores).filter(([k]) => allowedIds.has(k)))
       : {};
 
+    const resolvedOwnerEmail = editingAssessment
+      ? editingAssessment.ownerEmail || (editingAssessment.ownerUid === userUid ? userEmail : '')
+      : !isAdmin
+      ? userEmail
+      : '';
+
     return saveAssessment(
       {
         id: existingId ?? editingAssessment?.id,
         ownerUid: editingAssessment?.ownerUid ?? userUid,
+        ownerEmail: resolvedOwnerEmail,
         staffUid: editingAssessment?.staffUid ?? userUid,
         staffName,
         staffAge,

@@ -65,7 +65,7 @@ service cloud.firestore {
         'createdAt', 'updatedAt'
       ]) &&
       data.keys().hasOnly([
-        'ownerUid', 'staffUid', 'staffName', 'staffAge', 'ward',
+        'ownerUid', 'ownerEmail', 'staffUid', 'staffName', 'staffAge', 'ward',
         'positionType', 'totalYears', 'wardYears', 'formId', 'assessmentPeriod',
         'status', 'selfScores', 'supervisorScores', 'itemMethods',
         'selfTotalScore', 'selfMaxScore', 'selfPercentage',
@@ -75,6 +75,7 @@ service cloud.firestore {
         'createdAt', 'updatedAt'
       ]) &&
       isValidId(data.ownerUid) &&
+      (!('ownerEmail' in data) || (data.ownerEmail is string && data.ownerEmail.size() <= 254)) &&
       isValidId(data.staffUid) &&
       data.staffName is string && data.staffName.size() >= 1 && data.staffName.size() <= 120 &&
       data.staffAge is number && data.staffAge >= 18 && data.staffAge <= 85 &&
@@ -166,7 +167,7 @@ service cloud.firestore {
             existing().status in ['draft', 'self_submitted'] &&
             incoming().status in ['draft', 'self_submitted'] &&
             incoming().diff(existing()).affectedKeys().hasOnly([
-              'staffName', 'staffAge', 'ward', 'positionType', 'totalYears', 'wardYears',
+              'ownerEmail', 'staffName', 'staffAge', 'ward', 'positionType', 'totalYears', 'wardYears',
               'assessmentPeriod', 'status', 'selfScores', 'selfTotalScore', 'selfMaxScore',
               'selfPercentage', 'selfFeedback', 'selfOtherNote', 'updatedAt'
             ])
