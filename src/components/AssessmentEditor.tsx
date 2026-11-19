@@ -102,6 +102,9 @@ export function AssessmentEditor({
   const [assessmentPeriod, setAssessmentPeriod] = useState(
     editingAssessment?.assessmentPeriod ?? 'ประจำปี 2569'
   );
+  const [knowledgeTestScore, setKnowledgeTestScore] = useState(
+    editingAssessment?.knowledgeTestScore ?? ''
+  );
   const [evaluatorMode, setEvaluatorMode] = useState<'self' | 'supervisor'>(() => {
     if (!isAdmin) return 'self';
     if (
@@ -187,6 +190,9 @@ export function AssessmentEditor({
       setStaffAgeInput('');
       setTotalYearsInput('');
       setWardYearsInput('');
+      setKnowledgeTestScore('');
+    } else {
+      setKnowledgeTestScore(editingAssessment.knowledgeTestScore ?? '');
     }
   }, [initialFormId, initialStaffPrefill, editingAssessment]);
 
@@ -281,6 +287,7 @@ export function AssessmentEditor({
         wardYears,
         formId,
         assessmentPeriod,
+        knowledgeTestScore,
         status: nextStatus,
         selfScores: scopedSelfScores,
         supervisorScores: scopedSupScores,
@@ -660,6 +667,21 @@ export function AssessmentEditor({
               disabled={isSelfLockedForStaff}
               placeholder="เช่น ประจำปี 2569"
               className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              คะแนนสอบวัดความรู้สมรรถนะ
+            </label>
+            <input
+              type="text"
+              maxLength={30}
+              value={knowledgeTestScore}
+              onChange={(e) => setKnowledgeTestScore(e.target.value)}
+              disabled={isSelfLockedForStaff}
+              placeholder="ระบุคะแนน (เช่น 85% หรือ 18/20)"
+              className="w-full min-h-[44px] px-3 py-2 text-base sm:text-sm font-mono tabular-nums bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0891B2]/15 focus:border-[#0891B2] disabled:opacity-60"
             />
           </div>
         </div>

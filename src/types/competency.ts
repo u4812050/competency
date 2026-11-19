@@ -73,6 +73,7 @@ export interface CompetencyAssessment {
   wardYears: number;
   formId: FormId;
   assessmentPeriod: string;
+  knowledgeTestScore?: string;
   status: AssessmentStatus;
   selfScores: Record<string, number>;
   supervisorScores: Record<string, number>;

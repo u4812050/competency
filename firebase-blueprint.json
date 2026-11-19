@@ -136,6 +136,11 @@
           "minLength": 1,
           "maxLength": 50
         },
+        "knowledgeTestScore": {
+          "type": "string",
+          "description": "Competency knowledge test score across all levels",
+          "maxLength": 30
+        },
         "status": {
           "type": "string",
           "description": "Assessment workflow status",

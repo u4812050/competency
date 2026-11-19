@@ -135,6 +135,7 @@ export function RecordsTable({
       'หอผู้ป่วย',
       'แบบประเมิน',
       'รอบการประเมิน',
+      'คะแนนสอบวัดความรู้สมรรถนะ',
       'คะแนนตนเอง',
       'ร้อยละตนเอง',
       'คะแนนผู้บังคับบัญชา',
@@ -152,6 +153,7 @@ export function RecordsTable({
         a.ward,
         form.code,
         a.assessmentPeriod,
+        a.knowledgeTestScore?.trim() || '-',
         `${a.selfTotalScore}/${a.selfMaxScore}`,
         `${a.selfPercentage}%`,
         `${a.supervisorTotalScore}/${a.supervisorMaxScore}`,
@@ -167,6 +169,7 @@ export function RecordsTable({
       '-',
       DEFAULT_WARD,
       member.category === 'SUPERVISOR' ? 'ผู้บังคับบัญชา' : `กลุ่ม ${member.category}`,
+      '-',
       '-',
       '-',
       '-',
@@ -365,7 +368,12 @@ export function RecordsTable({
                         </span>
                         <span className="text-slate-400 ml-1.5">· {item.assessmentPeriod}</span>
                       </div>
-                      <div className="flex items-center gap-3 font-mono tabular-nums">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono tabular-nums">
+                        {item.knowledgeTestScore?.trim() && (
+                          <span className="text-slate-700 font-medium">
+                            สอบความรู้ {item.knowledgeTestScore.trim()}
+                          </span>
+                        )}
                         <span className="text-[#4F46E5] font-medium">ตนเอง {item.selfPercentage}%</span>
                         <span className="text-[#0891B2] font-semibold">
                           หัวหน้า {item.supervisorTier === 'pending' ? '—' : `${item.supervisorPercentage}%`}
@@ -454,6 +462,7 @@ export function RecordsTable({
                     <th className="text-left px-3 lg:px-4 py-3 font-medium">ชื่อ–นามสกุล</th>
                     <th className="text-left px-3 lg:px-4 py-3 font-medium">แบบประเมิน / กลุ่ม</th>
                     <th className="text-left px-3 lg:px-4 py-3 font-medium">รอบประเมิน</th>
+                    <th className="text-right px-3 lg:px-4 py-3 font-medium">สอบความรู้</th>
                     <th className="text-right px-3 lg:px-4 py-3 font-medium">ประเมินตนเอง</th>
                     <th className="text-right px-3 lg:px-4 py-3 font-medium">ผู้บังคับบัญชา</th>
                     <th className="text-left px-3 lg:px-4 py-3 font-medium">สรุปเกณฑ์</th>
@@ -482,6 +491,9 @@ export function RecordsTable({
                           </span>
                         </td>
                         <td className="px-3 lg:px-4 py-3 text-slate-600">{item.assessmentPeriod}</td>
+                        <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-slate-700">
+                          {item.knowledgeTestScore?.trim() || '—'}
+                        </td>
                         <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-[#4F46E5] font-medium">
                           {item.selfPercentage}%
                         </td>
@@ -559,6 +571,9 @@ export function RecordsTable({
                           )}
                         </td>
                         <td className="px-3 lg:px-4 py-3 text-slate-400">—</td>
+                        <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-slate-400">
+                          —
+                        </td>
                         <td className="px-3 lg:px-4 py-3 text-right font-mono tabular-nums text-slate-400">
                           —
                         </td>

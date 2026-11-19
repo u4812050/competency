@@ -67,7 +67,7 @@ service cloud.firestore {
       data.keys().hasOnly([
         'ownerUid', 'ownerEmail', 'staffUid', 'staffName', 'staffAge', 'ward',
         'positionType', 'totalYears', 'wardYears', 'formId', 'assessmentPeriod',
-        'status', 'selfScores', 'supervisorScores', 'itemMethods',
+        'knowledgeTestScore', 'status', 'selfScores', 'supervisorScores', 'itemMethods',
         'selfTotalScore', 'selfMaxScore', 'selfPercentage',
         'supervisorTotalScore', 'supervisorMaxScore', 'supervisorPercentage',
         'supervisorTier', 'supervisorFeedback', 'supervisorOtherNote',
@@ -85,6 +85,7 @@ service cloud.firestore {
       data.wardYears is number && data.wardYears >= 0 && data.wardYears <= 65 &&
       data.formId in ['PN', 'HP', 'STN_Colorectal', 'STN_CA_Breast', 'STN_AVF', 'STN_LT', 'STN_KT'] &&
       data.assessmentPeriod is string && data.assessmentPeriod.size() >= 1 && data.assessmentPeriod.size() <= 50 &&
+      (!('knowledgeTestScore' in data) || (data.knowledgeTestScore is string && data.knowledgeTestScore.size() <= 30)) &&
       data.status in ['draft', 'self_submitted', 'evaluated', 'archived'] &&
       data.selfScores is map && data.selfScores.size() <= 60 &&
       data.supervisorScores is map && data.supervisorScores.size() <= 60 &&
@@ -168,7 +169,7 @@ service cloud.firestore {
             incoming().status in ['draft', 'self_submitted'] &&
             incoming().diff(existing()).affectedKeys().hasOnly([
               'ownerEmail', 'staffName', 'staffAge', 'ward', 'positionType', 'totalYears', 'wardYears',
-              'assessmentPeriod', 'status', 'selfScores', 'selfTotalScore', 'selfMaxScore',
+              'assessmentPeriod', 'knowledgeTestScore', 'status', 'selfScores', 'selfTotalScore', 'selfMaxScore',
               'selfPercentage', 'selfFeedback', 'selfOtherNote', 'updatedAt'
             ])
           )

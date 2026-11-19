@@ -141,6 +141,12 @@ export function AssessmentDetailModal({
                   {assessment.evaluatorName || 'รอผู้บังคับบัญชาประเมิน'}
                 </span>
               </div>
+              <div>
+                <span className="text-slate-500">คะแนนสอบวัดความรู้สมรรถนะ: </span>
+                <span className="font-mono font-semibold tabular-nums text-[#0E7490]">
+                  {assessment.knowledgeTestScore?.trim() || '—'}
+                </span>
+              </div>
             </div>
           </div>
 

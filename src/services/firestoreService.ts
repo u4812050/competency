@@ -220,6 +220,7 @@ export interface SaveAssessmentInput {
   wardYears: number;
   formId: FormId;
   assessmentPeriod: string;
+  knowledgeTestScore?: string;
   status: AssessmentStatus;
   selfScores: Record<string, number>;
   supervisorScores: Record<string, number>;
@@ -268,6 +269,7 @@ export async function saveAssessment(
     totalYears: clampNumber(Number(input.totalYears), 0, 65),
     wardYears: clampNumber(Number(input.wardYears), 0, 65),
     assessmentPeriod: clampString(input.assessmentPeriod, 50) || 'ประจำปี 2569',
+    knowledgeTestScore: clampString(input.knowledgeTestScore ?? '', 30),
     status: input.status,
     selfScores: cleanSelfScores,
     selfTotalScore: calc.selfTotalScore,
